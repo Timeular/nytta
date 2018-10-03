@@ -1,0 +1,16 @@
+# Gradle
+.gradle
+/build/
+/out/
+/classes/
+/gradle/
+
+# Maven
+target
+
+# IntelliJ IDEA project configuration
+/*.iml
+/.idea/*
+
+# macOS
+.DS_Store
