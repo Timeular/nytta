@@ -6,7 +6,7 @@ import com.google.common.base.Strings.isNullOrEmpty
 import java.net.URLEncoder
 
 /**
- * a builder which helps to build correct urls with parameters which are url encoded
+ * a builder which helps to build correct urls with url-encoded parameters
  */
 class UrlBuilder private constructor() {
 

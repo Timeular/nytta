@@ -3,7 +3,7 @@ package com.timeular.nytta.http.client
 import okhttp3.Headers
 
 /**
- * http repsonse which gives you the plain body in text form without modifying it
+ * http repsonse which returns the plain body in text form without modifying it
  */
 class TextHttpResponse(
         codeValue: Int,

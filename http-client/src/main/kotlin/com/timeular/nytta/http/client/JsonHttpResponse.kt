@@ -7,8 +7,8 @@ import okhttp3.Headers
 /**
  * response which parses the response to json
  *
- * Hint: the response will parsed in a lazy approach - that means it will be parsed
- * when you accessing the body
+ * Hint: the response will be parsed in a lazy approach - that means it will be parsed
+ * when the body is accessed 
  */
 class JsonHttpResponse(
         codeValue: Int,

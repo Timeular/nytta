@@ -28,7 +28,7 @@ abstract class HttpResponse<out T>(
     fun wasSuccessful() = code in (200..299)
 
     /**
-     * checks if the response wasn't succesfull (2xx)
+     * checks if the response wasn't succesful (2xx)
      */
     fun wasResponseError() = !wasSuccessful()
 

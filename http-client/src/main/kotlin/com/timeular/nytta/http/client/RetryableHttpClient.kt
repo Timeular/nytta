@@ -4,7 +4,7 @@ import com.google.gson.JsonElement
 import org.springframework.retry.support.RetryTemplate
 
 /**
- * Retryable http client which intents to retries a http call based on
+ * Retryable http client which retries http calls based on
  * the configured retryTemplate.
  *
  * Note: This is only a wrapper implementation and works with any other

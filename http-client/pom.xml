@@ -13,7 +13,7 @@
     <artifactId>http-client</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <name>Timular Nytta Http Client</name>
+    <name>Timeular Nytta Http Client</name>
     <description>This is a helper module to provide a simple http client.</description>
     <url>https://github.com/Timeular/nytta/http-client</url>
 

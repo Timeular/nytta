@@ -8,7 +8,7 @@ import com.google.gson.JsonElement
 interface HttpClient {
 
     /**
-     * request with intents to have json response
+     * request with the intent to have a json response
      */
     fun request(
             httpMethod: HttpMethod,
@@ -18,7 +18,7 @@ interface HttpClient {
     ): JsonHttpResponse
 
     /**
-     * request with intents to have a text response
+     * request with the intent to have a text response
      */
     fun requestWithTextResponse(
             httpMethod: HttpMethod,
