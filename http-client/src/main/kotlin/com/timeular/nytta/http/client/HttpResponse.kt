@@ -2,6 +2,9 @@ package com.timeular.nytta.http.client
 
 import okhttp3.Headers
 
+/**
+ * Basic abstraction for a http response
+ */
 abstract class HttpResponse<out T>(
         val code: Int,
         val headers: Headers,
@@ -19,11 +22,23 @@ abstract class HttpResponse<out T>(
             """.trimMargin()
     }
 
-    private fun is2xxSuccessful() = code in (200..299)
+    /**
+     * checks if the response code was 2xx
+     */
+    fun wasSuccessful() = code in (200..299)
 
-    fun wasResponseError() = !is2xxSuccessful()
+    /**
+     * checks if the response wasn't succesfull (2xx)
+     */
+    fun wasResponseError() = !wasSuccessful()
 
+    /**
+     * checks if the response code was 4xx
+     */
     fun isClientError() = code in (400..499)
 
+    /**
+     * checks if the response code was 5xx
+     */
     fun isServerError() = code in (500..599)
 }

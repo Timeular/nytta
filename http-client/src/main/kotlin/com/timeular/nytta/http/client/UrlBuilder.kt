@@ -5,6 +5,9 @@ import com.google.common.base.Preconditions.checkArgument
 import com.google.common.base.Strings.isNullOrEmpty
 import java.net.URLEncoder
 
+/**
+ * a builder which helps to build correct urls with parameters which are url encoded
+ */
 class UrlBuilder private constructor() {
 
     private var url = ""

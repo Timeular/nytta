@@ -6,6 +6,9 @@ import okhttp3.Headers
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
+/**
+ * {@link HttpClient} implementation which wraps okHttp client
+ */
 open class OkHttpClient(
         val timeoutInSeconds: Long = 10
 ) : HttpClient {

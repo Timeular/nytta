@@ -3,6 +3,13 @@ package com.timeular.nytta.http.client
 import com.google.gson.JsonElement
 import org.springframework.retry.support.RetryTemplate
 
+/**
+ * Retryable http client which intents to retries a http call based on
+ * the configured retryTemplate.
+ *
+ * Note: This is only a wrapper implementation and works with any other
+ * {@link HttpClient} implementation.
+*/
 class RetryableHttpClient(
         private val httpClientDelegate: HttpClient,
         private val retryTemplate: RetryTemplate
