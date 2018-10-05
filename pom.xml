@@ -178,10 +178,10 @@
                             <goal>javadocJar</goal>
                         </goals>
                     </execution>
-                    <configuration>
-                        <jdkVersion>8</jdkVersion>
-                    </configuration>
                 </executions>
+                <configuration>
+                    <jdkVersion>8</jdkVersion>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
