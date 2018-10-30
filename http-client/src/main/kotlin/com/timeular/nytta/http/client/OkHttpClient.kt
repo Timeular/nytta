@@ -51,7 +51,7 @@ open class OkHttpClient(
                 )
             }
 
-    private fun <T> makeRequest(
+    fun <T> makeRequest(
             bodyJson: JsonElement?,
             headers: Map<String, String>,
             httpMethod: HttpMethod,
