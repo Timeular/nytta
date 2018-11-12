@@ -12,7 +12,7 @@ pom.xml.releaseBackup
 
 # IntelliJ IDEA project configuration
 /*.iml
-/.idea/*
+*/.idea/*
 
 # macOS
 .DS_Store

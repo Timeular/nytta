@@ -4,7 +4,32 @@ The Nytta Http Client is a slim wrapper around [OkHttp http client](https://gith
 
 ## Latest release
 
-coming soon...
+The most recent release is http-client 1.0.0, released October 05, 2018.
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.timeular.nytta</groupId>
+  <artifactId>http-client</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+// Gradle Groovy DSL
+compile 'com.timeular.nytta:http-client:1.0.0'
+
+// Gradle Kotlin DSL
+compile(group = "com.timeular.nytta", name = "http-client", version = "1.0.0")
+```
+
+### Manual
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta/http-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta/http-client/badge.svg)
+Download the latest release from the maven central repository and add the jar file to you classpath.
 
 ## Requirements
 
@@ -15,7 +40,6 @@ nytta http client is compiled against JDK8+ and has the following required depen
  - kotson
  - guava
  - slf4j
-
 
 Additionaly you can put `spring-retry` on the class path to use the `RetryableHttpClient`.
 
