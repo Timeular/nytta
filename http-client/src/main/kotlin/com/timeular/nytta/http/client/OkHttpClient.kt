@@ -130,7 +130,7 @@ open class OkHttpClient(
                 else -> null
             }
 
-    private fun requestBodyWith(bodyJsonAsText: String): okhttp3.RequestBody? =
+    fun requestBodyWith(bodyJsonAsText: String): okhttp3.RequestBody? =
             okhttp3.RequestBody.create(
                     okhttp3.MediaType.parse("application/json"),
                     bodyJsonAsText
