@@ -11,7 +11,7 @@ release.properties
 pom.xml.releaseBackup
 
 # IntelliJ IDEA project configuration
-/*.iml
+*.iml
 */.idea/*
 
 # macOS

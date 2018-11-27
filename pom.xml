@@ -12,6 +12,7 @@
     <url>https://github.com/Timeular/nytta/</url>
 
     <modules>
+        <module>ihop</module>
         <module>http-client</module>
         <module>spring-ext</module>
     </modules>
