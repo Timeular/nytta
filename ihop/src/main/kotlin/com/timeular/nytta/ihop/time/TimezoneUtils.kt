@@ -2,7 +2,7 @@ package com.timeular.nytta.ihop.time
 
 import java.time.ZoneId
 import java.time.ZoneOffset
-import java.util.TimeZone
+import java.util.*
 import java.util.regex.Pattern
 
 const val UTC = "UTC+00:00"
@@ -16,19 +16,28 @@ fun String?.isUTCOffset(): Boolean =
 
 fun isUTCOffsetString(source: String): Boolean = pattern.matcher(source).matches()
 
-fun toUTCOffsetString(source: String): String {
+fun toUTCOffsetString(
+        source: String,
+        date: Date = Date()
+): String {
     if (isUTCOffsetString(source)) return source
     val tz = TimeZone.getAvailableIDs()
             .filter { it.equals(source, true) }
             .getOrNull(0) ?: return UTC
-    return toUTCOffsetString(TimeZone.getTimeZone(tz))
+    return toUTCOffsetString(TimeZone.getTimeZone(tz), date)
 }
 
-fun toUTCOffsetString(zone: ZoneId): String =
-        toUTCOffsetString(TimeZone.getTimeZone(zone))
+fun toUTCOffsetString(
+        zone: ZoneId,
+        date: Date = Date()
+): String =
+        toUTCOffsetString(TimeZone.getTimeZone(zone), date)
 
-fun toUTCOffsetString(timezone: TimeZone): String {
-    val offset = timezone.rawOffset / 1000 / 60
+fun toUTCOffsetString(
+        timezone: TimeZone,
+        date: Date = Date()
+): String {
+    val offset = timezone.getOffset(date.time) / 1000 / 60
     val sign = if (offset < 0) "-" else "+"
     val hours = Math.abs(offset / 60)
     val minutes = Math.abs(offset % 60)

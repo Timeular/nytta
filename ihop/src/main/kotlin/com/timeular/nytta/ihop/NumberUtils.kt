@@ -1,5 +1,8 @@
 package com.timeular.nytta.ihop
 
+/**
+ * converts the integer to its ordinal string representation
+ */
 fun Int.toOrdinalString(): String =
         "$this" + if (this % 100 in 11..13) {
             "th"

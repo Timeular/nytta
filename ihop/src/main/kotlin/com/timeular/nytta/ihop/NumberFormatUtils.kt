@@ -3,6 +3,9 @@ package com.timeular.nytta.ihop
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+/**
+ * Unifies all rounding and number formatting issues.
+ */
 class NumberFormatUtils private constructor() {
 
     companion object {

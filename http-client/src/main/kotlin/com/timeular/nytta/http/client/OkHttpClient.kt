@@ -3,6 +3,7 @@ package com.timeular.nytta.http.client
 import com.google.gson.JsonElement
 import com.timeular.nytta.http.client.HttpMethod.*
 import okhttp3.Headers
+import okhttp3.ResponseBody
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
 
@@ -32,7 +33,7 @@ open class OkHttpClient(
             makeRequest(bodyJson, headers, httpMethod, url) { respCode, respBody, respHeaders ->
                 JsonHttpResponse(
                         codeValue = respCode,
-                        bodyAsText = respBody,
+                        bodyAsText = respBody?.string(),
                         headers = respHeaders
                 )
             }
@@ -46,7 +47,7 @@ open class OkHttpClient(
             makeRequest(bodyJson, headers, httpMethod, url) { respCode, respBody, respHeaders ->
                 TextHttpResponse(
                         codeValue = respCode,
-                        bodyAsText = respBody,
+                        bodyAsText = respBody?.string(),
                         headers = respHeaders
                 )
             }
@@ -58,7 +59,7 @@ open class OkHttpClient(
             url: String,
             factory: (
                     Int,
-                    String?,
+                    ResponseBody?,
                     Headers
             ) -> T
     ): T {
@@ -109,13 +110,13 @@ open class OkHttpClient(
             response: okhttp3.Response,
             factory: (
                     Int,
-                    String?,
+                    ResponseBody?,
                     Headers
             ) -> T
     ): T = response.body()?.use { body ->
         factory(
                 response.code(),
-                body.string(),
+                body,
                 response.headers()
         )
     } ?: factory(
