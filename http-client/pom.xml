@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.timeular.nytta</groupId>
         <artifactId>parent</artifactId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>2.0.1</version>
     </parent>
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>http-client</artifactId>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.1</version>
 
     <name>Timeular Nytta Http Client</name>
     <description>This is a helper module to provide a simple http client.</description>
