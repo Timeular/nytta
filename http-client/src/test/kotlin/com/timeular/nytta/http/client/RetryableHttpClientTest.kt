@@ -1,6 +1,6 @@
 package com.timeular.nytta.http.client
 
-import com.natpryce.hamkrest.assertion.assert
+import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.throws
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
@@ -37,7 +37,7 @@ internal class RetryableHttpClientTest {
 
     @Test
     fun testRetryRequest() {
-        assert.that(
+        assertThat(
                 {
                     retryableHttpClient.request(
                             httpMethod = HttpMethod.GET,
@@ -51,8 +51,8 @@ internal class RetryableHttpClientTest {
     }
 
     @Test
-    fun testRetryRequestWithTextResponse(){
-        assert.that(
+    fun testRetryRequestWithTextResponse() {
+        assertThat(
                 {
                     retryableHttpClient.requestWithTextResponse(
                             httpMethod = HttpMethod.GET,

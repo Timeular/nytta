@@ -9,18 +9,18 @@
     </parent>
 
     <groupId>com.timeular.nytta</groupId>
-    <artifactId>ihop</artifactId>
+    <artifactId>tracking</artifactId>
     <version>2.1.0-SNAPSHOT</version>
 
-    <name>Timeular Nytta ihop</name>
-    <description>This is a helper module to provide common helper classes.</description>
-    <url>https://github.com/Timeular/nytta/ihop</url>
+    <name>Timeular Nytta Tracking</name>
+    <description>This module provides basic infrastructure for tracking providers</description>
+    <url>https://github.com/Timeular/nytta/tracking</url>
 
     <dependencies>
         <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-reflect</artifactId>
-            <scope>test</scope>
+            <groupId>com.timeular.nytta</groupId>
+            <artifactId>http-client</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 </project>

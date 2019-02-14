@@ -1,6 +1,6 @@
 package com.timeular.nytta.spring.flywaydb
 
-import com.natpryce.hamkrest.assertion.assert
+import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.timeular.nytta.spring.boot.flywaydb.SpringBootFlywayConfiguration
 import org.dbunit.DataSourceDatabaseTester
@@ -34,6 +34,6 @@ class FlywayTest(
     fun testFlywayMigration() {
         val dbTester = DataSourceDatabaseTester(dataSource)
 
-        assert.that(dbTester.connection.getRowCount("\"schema_version\""), equalTo(4))
+        assertThat(dbTester.connection.getRowCount("\"schema_version\""), equalTo(4))
     }
 }

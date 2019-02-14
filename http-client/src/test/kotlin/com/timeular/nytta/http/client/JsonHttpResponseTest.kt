@@ -3,7 +3,7 @@ package com.timeular.nytta.http.client
 import com.github.salomonbrys.kotson.jsonObject
 import com.google.gson.JsonElement
 import com.google.gson.JsonNull
-import com.natpryce.hamkrest.assertion.assert
+import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import okhttp3.Headers
 import org.junit.jupiter.api.Test
@@ -19,9 +19,9 @@ internal class JsonHttpResponseTest : AbstractHttpResponseTest() {
 
     @Test
     fun testBody() {
-        assert.that(createJsonResponse(null).body, equalTo(JsonNull.INSTANCE as JsonElement))
-        assert.that(createJsonResponse("").body, equalTo(JsonNull.INSTANCE as JsonElement))
-        assert.that(createJsonResponse(
+        assertThat(createJsonResponse(null).body, equalTo(JsonNull.INSTANCE as JsonElement))
+        assertThat(createJsonResponse("").body, equalTo(JsonNull.INSTANCE as JsonElement))
+        assertThat(createJsonResponse(
                 "{ \"key\": \"value\" }").body,
                 equalTo(jsonObject("key" to "value") as JsonElement)
         )
