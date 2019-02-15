@@ -14,7 +14,7 @@ class TrackerContext : Tracker {
         @JvmStatic
         fun initialize(tracker: Tracker, enabled: Boolean) {
             instance.tracker = tracker
-            instance.enabled
+            instance.enabled = enabled
         }
 
         @JvmStatic
