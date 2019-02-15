@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test
 internal class MixpanelTrackerTest {
 
     companion object {
-       // private const val API_TOKEN = "change-that-before-you-run-the-test"
-        private const val API_TOKEN ="c71719bab4e437138f1422faaf6e91a8"
+        private const val API_TOKEN = "change-that-before-you-run-the-test"
         private const val GDPR_TOKEN = "change-that-before-you-run-the-test"
     }
 
@@ -63,7 +62,7 @@ internal class MixpanelTrackerTest {
      * locally
      */
     @Test
-   // @Disabled
+    @Disabled
     fun testUpdateUser() {
         MixpanelTracker(
                 token = API_TOKEN,
