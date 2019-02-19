@@ -5,15 +5,9 @@
 /classes/
 /gradle/
 
-# Maven
-target
-release.properties
-pom.xml.releaseBackup
-
 # IntelliJ IDEA project configuration
-*.iml
-*/.idea/*
-.idea/*
+/*.iml
+/.idea/*
 
 # macOS
 .DS_Store
