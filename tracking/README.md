@@ -4,7 +4,43 @@ The Nytta tracking module consists of a server-side tracking integrations (curre
 
 ## Latest release
 
-Coming soon.
+The most recent release is tracking 2.1.0, released February 20, 2019.
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.timeular.nytta</groupId>
+  <artifactId>tracking</artifactId>
+  <version>2.1.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+// Gradle Groovy DSL
+compile 'com.timeular.nytta:tracking:2.1.0'
+
+// Gradle Kotlin DSL
+compile(group = "com.timeular.nytta", name = "tracking", version = "2.1.0")
+```
+
+### Manual
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta/tracking/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta/tracking/badge.svg)
+Download the latest release from the maven central repository and add the jar file to you classpath.
+
+## Requirements
+
+nytta tracking is compiled against JDK8+ and has the following required dependencies:
+
+- nytta http-client
+  - okhttp3
+  - gson
+  - kotson
+  - guava
+  - slf4j
 
 ## Usage
 
