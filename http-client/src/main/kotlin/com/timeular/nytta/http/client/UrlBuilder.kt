@@ -4,6 +4,7 @@ import com.google.common.base.Joiner
 import com.google.common.base.Preconditions.checkArgument
 import com.google.common.base.Strings.isNullOrEmpty
 import java.net.URLEncoder
+import java.util.*
 
 /**
  * a builder which helps to build correct urls with url-encoded parameters
