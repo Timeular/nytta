@@ -5,8 +5,8 @@ import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.present
 import org.dbunit.DataSourceDatabaseTester
+import org.dbunit.DefaultOperationListener
 import org.dbunit.IDatabaseTester
-import org.dbunit.IOperationListener
 import org.dbunit.database.DatabaseConfig
 import org.dbunit.database.IDatabaseConnection
 import org.dbunit.dataset.ITable
@@ -14,6 +14,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder
 import org.dbunit.ext.postgresql.PostgresqlDataTypeFactory
 import org.dbunit.operation.DatabaseOperation
 import org.h2.jdbcx.JdbcDataSource
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import java.io.File
 import java.math.BigInteger
@@ -22,11 +23,23 @@ import javax.sql.DataSource
 abstract class DBUnitTest {
     val testDataSource: DataSource = initializeDataSource()
 
-    private var databaseTester: IDatabaseTester = initializeDatabaseTester()
+    private val databaseTester: IDatabaseTester
+    private var dbConnection: IDatabaseConnection? = null
+
+    init {
+        databaseTester = initializeDatabaseTester()
+    }
 
     @BeforeEach
     open fun before() {
         databaseTester.onSetup()
+        dbConnection = databaseTester.connection
+    }
+
+    @AfterEach
+    open fun after() {
+        dbConnection?.close()
+        databaseTester.onTearDown()
     }
 
     private fun initializeDataSource(): JdbcDataSource {
@@ -48,7 +61,7 @@ abstract class DBUnitTest {
         } finally {
             stmt.close()
         }
-        
+
         val dbTester = DataSourceDatabaseTester(testDataSource)
 
         val dataSet = FlatXmlDataSetBuilder().build(
@@ -61,7 +74,7 @@ abstract class DBUnitTest {
         return dbTester
     }
 
-    protected fun connection(): IDatabaseConnection = databaseTester.connection
+    protected fun connection(): IDatabaseConnection = dbConnection!!
 
     protected fun assertColumnInFirstRow(table: ITable, columnName: String, expectedValue: String?) {
         assertThat(table.getValue(0, columnName) as String?, equalTo(expectedValue))
@@ -84,16 +97,8 @@ abstract class DBUnitTest {
     }
 }
 
-class OperationListener : IOperationListener {
+class OperationListener : DefaultOperationListener() {
     private val postgresqlDataTypeFactory = PostgresqlDataTypeFactory()
-
-    override fun operationSetUpFinished(connection: IDatabaseConnection?) {
-
-    }
-
-    override fun operationTearDownFinished(connection: IDatabaseConnection?) {
-
-    }
 
     override fun connectionRetrieved(connection: IDatabaseConnection?) {
         connection?.config?.setProperty(DatabaseConfig.PROPERTY_DATATYPE_FACTORY, postgresqlDataTypeFactory)

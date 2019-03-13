@@ -2,7 +2,6 @@ package com.timeular.nytta.email.core.db
 
 import com.google.common.base.Joiner
 import com.timeular.nytta.email.core.MailConfig
-import com.timeular.nytta.email.core.MailException
 import javax.sql.DataSource
 
 open class MailStorageRepository(
@@ -11,61 +10,77 @@ open class MailStorageRepository(
     private val joiner = Joiner.on(",")
 
     companion object {
+        private const val DEFAULT_ID = -1L
         private const val MAIL_STORAGE_ATTACHMENT_INSERT = """INSERT INTO $MAIL_STORAGE_ATTACHMENT_NAME(
             mail_Id, name, mime_type, data)
             VALUES (?, ?, ?, ?)"""
     }
 
     fun saveMailConfig(mailConfig: MailConfig): Boolean {
-        val con = dataSource.connection
-        val stmt = InsertMailPreparedStatementCreator(joiner, mailConfig).createPreparedStatement(con)
-        val attrStmt = con.prepareStatement(MAIL_STORAGE_ATTACHMENT_INSERT)
-        try {
-            var result = stmt.executeUpdate() == 1
-            return if (result && mailConfig.inlineAttachments.isNotEmpty()) {
-                var mailId = -1L
-                val generatedKeys = stmt.generatedKeys
-                if (generatedKeys.next()) {
-                    mailId =  generatedKeys.getLong("ID")
-                }
-                con.commit()
-
-                if (mailId > 0) {
-                    val mailAttachmentParameterizedPreparedStatementSetter = MailAttachmentParameterizedPreparedStatementSetter(mailId)
-                    mailConfig.inlineAttachments.forEach {
-                        mailAttachmentParameterizedPreparedStatementSetter.setValues(attrStmt, it)
+        dataSource.connection.use { con ->
+            con.autoCommit = false
+            try {
+                val mailId = InsertMailPreparedStatementCreator(joiner, mailConfig).createPreparedStatement(con).use { stmt ->
+                    val result = stmt.executeUpdate()
+                    if (result == 1) {
+                        val generatedKeys = stmt.generatedKeys
+                        if (generatedKeys.next()) {
+                            generatedKeys.getLong("ID")
+                        } else {
+                            DEFAULT_ID
+                        }
+                    } else {
+                        DEFAULT_ID
                     }
-                    val attResult = attrStmt.executeBatch()
-                    con.commit()
+                }
 
-                    attResult.forEach {amountOfResults ->
-                        result = result && amountOfResults == 1
+                val result = if (mailId != DEFAULT_ID) {
+                    if (mailConfig.inlineAttachments.isNotEmpty()) {
+                        con.prepareStatement(MAIL_STORAGE_ATTACHMENT_INSERT).use { attrStmt ->
+                            val mailAttachmentParameterizedPreparedStatementSetter = MailAttachmentParameterizedPreparedStatementSetter(mailId)
+                            mailConfig.inlineAttachments.forEach {
+                                mailAttachmentParameterizedPreparedStatementSetter.setValues(attrStmt, it)
+                            }
+                            val attResult = attrStmt.executeBatch()
+                            var result = true
+                            attResult.forEach { amountOfResults ->
+                                result = result && amountOfResults == 1
+                            }
+                            result
+                        }
+                    } else {
+                        true
                     }
                 } else {
-                    throw MailException("Unable to save mail attachments - unable to fetch id of stored mail")
+                    false
                 }
-                        stmt.close()
-                result
-            } else {
-                result
+
+                con.commit()
+                return result
+            } catch (ex: Throwable) {
+                con.rollback()
+                throw ex
             }
-        } finally {
-            attrStmt.close()
-            stmt.close()
         }
     }
 
     fun deleteAllMails() {
-        val con = dataSource.connection
-        val attachmentStmt = con.prepareStatement("delete from $MAIL_STORAGE_ATTACHMENT_NAME")
-        val mailStmt = con.prepareStatement("delete from $MAIL_STORAGE_NAME")
-        try {
-            attachmentStmt.executeUpdate()
-            mailStmt.executeUpdate()
-            con.commit()
-        } finally {
-            attachmentStmt.close()
-            mailStmt.close()
+        dataSource.connection.use { con ->
+            con.autoCommit = false
+            try {
+                con.prepareStatement("delete from $MAIL_STORAGE_ATTACHMENT_NAME").use { stmt ->
+                    stmt.executeUpdate()
+                }
+
+                con.prepareStatement("delete from $MAIL_STORAGE_NAME").use { stmt ->
+                    stmt.executeUpdate()
+                }
+
+                con.commit()
+            } catch (ex: Throwable) {
+                con.rollback()
+                throw ex
+            }
         }
     }
 }
