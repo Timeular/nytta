@@ -4,7 +4,45 @@ The Nytta spring-email module provides spring configuration for the [nytta email
 
 ## Latest release
 
-Coming soon.
+The most recent release is spring-email 2.2.0, released March 14, 2019.
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.timeular.nytta.email</groupId>
+  <artifactId>spring</artifactId>
+  <version>2.2.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+// Gradle Groovy DSL
+compile 'com.timeular.nytta.email:spring:2.2.0'
+
+// Gradle Kotlin DSL
+compile(group = "com.timeular.nytta.email", name = "spring", version = "2.2.0")
+```
+
+### Manual
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.email/spring/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.email/spring/badge.svg)
+Download the latest release from the maven central repository and add the jar file to you classpath.
+
+## Requirements
+
+nytta spring-email is compiled against JDK8+ and has the following required dependencies:
+
+- nytta email-core
+  - thymeleaf
+  - okhttp3
+  - gson
+  - guava
+  - slf4j
+- spring-context
+- thymeleaf-spring5
 
 ## Usage
 

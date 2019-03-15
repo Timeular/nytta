@@ -1,14 +1,39 @@
-# Nytta email
+# Nytta email core
 
-The Nytta email module provides helpers and services for handling e-mails in web-services. 
+The Nytta email module provides helpers and services for handling e-mails in web-services.
 
 ## Latest release
 
-Coming soon.
+The most recent release is email-core 2.2.0, released March 14, 2019.
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.timeular.nytta.email</groupId>
+  <artifactId>core</artifactId>
+  <version>2.2.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+// Gradle Groovy DSL
+compile 'com.timeular.nytta.email:core:2.2.0'
+
+// Gradle Kotlin DSL
+compile(group = "com.timeular.nytta.email", name = "core", version = "2.2.0")
+```
+
+### Manual
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.email/core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.email/core/badge.svg)
+Download the latest release from the maven central repository and add the jar file to you classpath.
 
 ## Requirements
 
-nytta tracking is compiled against JDK8+ and has the following required dependencies:
+nytta email core is compiled against JDK8+ and has the following required dependencies:
 
 - thymeleaf
 - okhttp3

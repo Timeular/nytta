@@ -4,7 +4,7 @@ The Nytta Http Client is a slim wrapper around [OkHttp http client](https://gith
 
 ## Latest release
 
-The most recent release is http-client 2.1.0, released February 20, 2019.
+The most recent release is http-client 2.2.0, released March 14, 2019.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is http-client 2.1.0, released February 20, 2019.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>http-client</artifactId>
-  <version>2.1.0</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is http-client 2.1.0, released February 20, 2019.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:http-client:2.1.0'
+compile 'com.timeular.nytta:http-client:2.2.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "http-client", version = "2.1.0")
+compile(group = "com.timeular.nytta", name = "http-client", version = "2.2.0")
 ```
 
 ### Manual
@@ -35,11 +35,11 @@ Download the latest release from the maven central repository and add the jar fi
 
 nytta http client is compiled against JDK8+ and has the following required dependencies:
 
- - okhttp3
- - gson
- - kotson
- - guava
- - slf4j
+- okhttp3
+- gson
+- kotson
+- guava
+- slf4j
 
 Additionaly you can put `spring-retry` on the class path to use the `RetryableHttpClient`.
 
@@ -47,8 +47,8 @@ Additionaly you can put `spring-retry` on the class path to use the `RetryableHt
 
 As a base you have an interface called `HttpClient` which has currently two implementations:
 
-* `OkHttpClient`
-* `RetryableHttpClient`
+- `OkHttpClient`
+- `RetryableHttpClient`
 
 In the following example, the usage is shown in detail.
 
@@ -65,9 +65,9 @@ val response = httpClient.request(
             url = "some url",
             headers = mapOf("Authorization" to "Bearer $accessToken")
             )
-            
+
 if( response.wasResponseError() ) {
-  // react on the error            
+  // react on the error
 }
 
 val jsonBody = response.body.asJsonObject["data"].asJsonObject
