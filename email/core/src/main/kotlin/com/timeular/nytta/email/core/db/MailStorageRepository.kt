@@ -60,6 +60,8 @@ open class MailStorageRepository(
             } catch (ex: Throwable) {
                 con.rollback()
                 throw ex
+            } finally {
+                con.autoCommit = true
             }
         }
     }
@@ -80,6 +82,8 @@ open class MailStorageRepository(
             } catch (ex: Throwable) {
                 con.rollback()
                 throw ex
+            } finally {
+                con.autoCommit = true
             }
         }
     }
