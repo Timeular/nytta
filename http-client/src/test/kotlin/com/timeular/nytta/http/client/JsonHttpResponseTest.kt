@@ -13,8 +13,7 @@ internal class JsonHttpResponseTest : AbstractHttpResponseTest() {
     override fun createResponseWithCode(statusCode: Int) =
             JsonHttpResponse(
                     codeValue = statusCode,
-                    bodyAsText = null,
-                    headers = Headers.of(emptyMap())
+                    bodyAsText = null
             )
 
     @Test
@@ -30,7 +29,6 @@ internal class JsonHttpResponseTest : AbstractHttpResponseTest() {
     private fun createJsonResponse(body: String?) =
             JsonHttpResponse(
                     codeValue = 200,
-                    bodyAsText = body,
-                    headers = Headers.of(emptyMap())
+                    bodyAsText = body
             )
 }

@@ -8,7 +8,7 @@ import okhttp3.Headers
 class TextHttpResponse(
         codeValue: Int,
         bodyAsText: String?,
-        headers: Headers = Headers.of(hashMapOf())
+        headers: Headers = Headers.Builder().build()
 ) : HttpResponse<String>(codeValue, headers, bodyAsText) {
 
     override val body = bodyAsText ?: ""

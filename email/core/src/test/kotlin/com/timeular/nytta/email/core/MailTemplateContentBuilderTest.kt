@@ -8,9 +8,7 @@ data class User(
         val firstName: String
 )
 
-internal class MailTemplateContentBuilderTest(
-
-) {
+internal class MailTemplateContentBuilderTest {
     private val mailTemplateContentBuilder = MailTemplateContentBuilder(
             mailTemplateEngine = templateEngine()
     )

@@ -13,7 +13,7 @@ import okhttp3.Headers
 class JsonHttpResponse(
         codeValue: Int,
         bodyAsText: String?,
-        headers: Headers = Headers.of(hashMapOf())
+        headers: Headers = Headers.Builder().build()
 ) : HttpResponse<JsonElement>(codeValue, headers, bodyAsText) {
 
     override val body: JsonElement by lazy { JsonParser().parse(bodyAsText ?: "") }
