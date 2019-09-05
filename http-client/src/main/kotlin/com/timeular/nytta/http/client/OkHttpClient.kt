@@ -3,6 +3,8 @@ package com.timeular.nytta.http.client
 import com.google.gson.JsonElement
 import com.timeular.nytta.http.client.HttpMethod.*
 import okhttp3.Headers
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import org.slf4j.LoggerFactory
 import java.util.concurrent.TimeUnit
@@ -84,7 +86,7 @@ open class OkHttpClient(
 
         val request = okhttp3.Request.Builder()
                 .url(url)
-                .headers(okhttp3.Headers.of(headers))
+                .headers(headers.toHeader())
                 .method(httpMethod.name, body)
                 .build()
         val response = okHttpClient.newCall(request).execute()
@@ -93,10 +95,10 @@ open class OkHttpClient(
             logger.trace(
                     """
             | HTTP response:
-            |- url     : ${response?.request()?.method()} - ${response?.request()?.url()}
-            |- code    : ${response?.code()}
+            |- url     : ${response.request.method} - ${response.request.url}
+            |- code    : ${response.code}
             |- headers : (below)
-            |${response?.headers()?.toString()}
+            |${response.headers}
             |- body    : (below)
             | can just be read once
             """.trimMargin()
@@ -113,16 +115,16 @@ open class OkHttpClient(
                     ResponseBody?,
                     Headers
             ) -> T
-    ): T = response.body()?.use { body ->
+    ): T = response.body?.use { body ->
         factory(
-                response.code(),
+                response.code,
                 body,
-                response.headers()
+                response.headers
         )
     } ?: factory(
-            response.code(),
+            response.code,
             null,
-            response.headers()
+            response.headers
     )
 
     private fun emptyRequestBodyFor(httpMethod: HttpMethod): okhttp3.RequestBody? =
@@ -132,8 +134,13 @@ open class OkHttpClient(
             }
 
     open fun requestBodyWith(bodyJsonAsText: String): okhttp3.RequestBody? =
-            okhttp3.RequestBody.create(
-                    okhttp3.MediaType.parse("application/json"),
-                    bodyJsonAsText
-            )
+            bodyJsonAsText.toRequestBody("application/json".toMediaType())
+
+    private fun Map<String, String>.toHeader(): Headers {
+        val builder = Headers.Builder()
+        this.forEach {
+            builder.add(it.key, it.value)
+        }
+        return builder.build()
+    }
 }

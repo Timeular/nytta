@@ -3,10 +3,10 @@ package com.timeular.nytta.email.core
 import com.google.common.base.Preconditions.checkNotNull
 import com.google.gson.JsonParser
 import okhttp3.Credentials
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import org.slf4j.LoggerFactory
 import java.time.format.DateTimeFormatter
 import java.util.concurrent.TimeUnit
@@ -56,11 +56,11 @@ open class MailgunMailService(
 
         okHttpClient.newCall(requestBuilder.build()).execute().use { response ->
             if (!response.isSuccessful) {
-                val responseBody = jsonParser.parse(response.body()?.string() ?: "")
+                val responseBody = jsonParser.parse(response.body?.string() ?: "")
                 logger.info(
                         "Unable to send email ({}): http status: {} - {}",
                         mailCfg.to,
-                        response.code(),
+                        response.code,
                         responseBody?.asJsonObject?.get("message")?.asString ?: ""
                 )
             }
@@ -100,7 +100,7 @@ open class MailgunMailService(
 
         mailConfig.inlineAttachments.forEach {
             val content = it.resource
-            contentBuilder.addFormDataPart("inline", it.name, RequestBody.create(MediaType.parse(it.mimeType), content))
+            contentBuilder.addFormDataPart("inline", it.name, content.toRequestBody(it.mimeType.toMediaType()))
         }
 
         return contentBuilder.build()

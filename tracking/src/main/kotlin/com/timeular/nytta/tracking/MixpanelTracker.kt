@@ -3,6 +3,8 @@ package com.timeular.nytta.tracking
 import com.github.salomonbrys.kotson.jsonArray
 import com.github.salomonbrys.kotson.jsonObject
 import com.google.gson.JsonObject
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 import com.timeular.nytta.http.client.HttpClient
 import com.timeular.nytta.http.client.HttpMethod
 import com.timeular.nytta.http.client.OkHttpClient
@@ -141,9 +143,6 @@ class MixpanelTracker @JvmOverloads constructor(
 
     private class OkHttpClientExt : OkHttpClient(60) {
         override fun requestBodyWith(bodyJsonAsText: String): okhttp3.RequestBody =
-                okhttp3.RequestBody.create(
-                        okhttp3.MediaType.parse(APPLICATION_JSON_VALUE),
-                        bodyJsonAsText.toByteArray()
-                )
+                bodyJsonAsText.toByteArray().toRequestBody(APPLICATION_JSON_VALUE.toMediaType())
     }
 }

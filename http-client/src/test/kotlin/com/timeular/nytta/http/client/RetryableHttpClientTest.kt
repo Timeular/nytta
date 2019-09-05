@@ -19,13 +19,11 @@ internal class RetryableHttpClientTest {
     private val httpClient = spy<HttpClient> {
         on { request(any(), any(), eq(null), any()) } doReturn JsonHttpResponse(
                 codeValue = 503,
-                headers = Headers.of(emptyMap()),
                 bodyAsText = null
         )
 
         on { requestWithTextResponse(any(), any(), eq(null), any()) } doReturn TextHttpResponse(
                 codeValue = 503,
-                headers = Headers.of(emptyMap()),
                 bodyAsText = null
         )
     }

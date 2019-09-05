@@ -10,8 +10,7 @@ internal class TextHttpResponseTest : AbstractHttpResponseTest() {
     override fun createResponseWithCode(statusCode: Int): HttpResponse<Any> =
             TextHttpResponse(
                     codeValue = statusCode,
-                    bodyAsText = null,
-                    headers = Headers.of(emptyMap())
+                    bodyAsText = null
             )
 
     @Test
@@ -24,7 +23,6 @@ internal class TextHttpResponseTest : AbstractHttpResponseTest() {
     private fun createTextResponse(body: String?) =
             TextHttpResponse(
                     codeValue = 200,
-                    bodyAsText = body,
-                    headers = Headers.of(emptyMap())
+                    bodyAsText = body
             )
 }
