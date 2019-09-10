@@ -48,7 +48,11 @@ open class MailgunMailService(
     }
 
     override fun sendMail(mailConfig: MailConfig): Boolean {
-        val mailCfg = mailServiceHelper.modifyMailConfigForOverride(mailConfig)
+        val mailCfg = mailServiceHelper.modifyMailConfig(mailConfig)
+        if (mailCfg.isNoEmailProvided()) {
+            return false
+        }
+
         val body = createMultipartBody(mailCfg)
         val requestBuilder = Request.Builder()
                 .url("$baseUrl$domain/messages")

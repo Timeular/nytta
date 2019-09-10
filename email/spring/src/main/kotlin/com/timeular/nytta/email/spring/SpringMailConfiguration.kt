@@ -24,8 +24,14 @@ open class SpringMailConfiguration {
             @Value("\${mail.test.override.enabled}")
             isOverrideEnabled: Boolean,
             @Value("\${mail.test.override.receiver}")
-            overrideAddressString: String
-    ): MailServiceHelper = MailServiceHelper(isOverrideEnabled, overrideAddressString)
+            overrideAddressString: String,
+            @Value("\${mail.test.excludePattern:#{null}}")
+            excludePattern: String?
+    ): MailServiceHelper = MailServiceHelper(
+            isOverrideEnabled = isOverrideEnabled,
+            overrideAddressString = overrideAddressString,
+            excludePattern = excludePattern
+    )
 
     @Bean
     open fun htmlTemplateResolver(

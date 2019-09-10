@@ -34,6 +34,24 @@ internal class MailConfigTest {
     }
 
     @Test
+    fun testBuilderIsNoEmailProvided() {
+        assertThat(builder.isNoEmailProvided(), equalTo(true))
+
+        builder.addTo("test@me.com")
+        assertThat(builder.isNoEmailProvided(), equalTo(false))
+
+        builder.clearTo()
+        assertThat(builder.isNoEmailProvided(), equalTo(true))
+        builder.addCC("test@me.com")
+        assertThat(builder.isNoEmailProvided(), equalTo(false))
+
+        builder.clearCC()
+        assertThat(builder.isNoEmailProvided(), equalTo(true))
+        builder.addBCC("test@me.com")
+        assertThat(builder.isNoEmailProvided(), equalTo(false))
+    }
+
+    @Test
     fun testBuilderWithMissingReceiver() {
         builder.from("test@me.com").subject("Test")
                 .text("text")
