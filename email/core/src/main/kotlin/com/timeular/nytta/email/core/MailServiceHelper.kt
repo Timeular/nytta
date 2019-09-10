@@ -1,13 +1,17 @@
 package com.timeular.nytta.email.core
 
 import com.google.common.base.Joiner
+import java.util.regex.Pattern
 
-open class MailServiceHelper(
+open class MailServiceHelper @JvmOverloads constructor(
         private val isOverrideEnabled: Boolean = false,
-        overrideAddressString: String = "invalid@timeular.com"
+        overrideAddressString: String = "invalid@timeular.com",
+        excludePattern: String? = null
 ) {
 
     private var overrideAddress: MailContact = MailContact("invalid@timeular.com")
+
+    private val compiledExcludePattern: Pattern? = excludePattern?.let { Pattern.compile(it) }
 
     init {
         overrideAddress = MailContact(overrideAddressString)
@@ -28,19 +32,49 @@ open class MailServiceHelper(
                 mailContext
             }
 
-    fun modifyMailConfigBuilderForOverride(mailCfgBuilder: MailConfig.Builder): MailConfig.Builder =
-            if (needToModifyMailConfigBuilder(mailCfgBuilder)) {
-                doModifyMailConfigBuilder(MailConfig.Builder.from(mailCfgBuilder))
-            } else {
+    fun modifyMailConfigBuilder(mailCfgBuilder: MailConfig.Builder): MailConfig.Builder =
+            if (mailCfgBuilder.isNoEmailProvided()) {
                 mailCfgBuilder
+            } else {
+                doModifyMailConfigBuilder(MailConfig.Builder.from(mailCfgBuilder))
             }
 
-    fun modifyMailConfigForOverride(mailCfg: MailConfig): MailConfig =
-            if (needToModifyMailConfig(mailCfg)) {
-                doModifyMailConfigBuilder(MailConfig.Builder.from(mailCfg)).build()
-            } else {
+    fun modifyMailConfig(mailCfg: MailConfig): MailConfig =
+            if (mailCfg.isNoEmailProvided()) {
                 mailCfg
+            } else {
+                val builder = doModifyMailConfigBuilder(MailConfig.Builder.from(mailCfg))
+                if (builder.isNoEmailProvided()) {
+                    MailConfig.EMPTY_MAIL_CONFIG
+                } else {
+                    builder.build()
+                }
             }
+
+    private fun doModifyMailConfigBuilder(mailCfgBuilder: MailConfig.Builder): MailConfig.Builder {
+        if (needToModifyMailConfigBuilder(mailCfgBuilder)) {
+            doModifyMailConfigBuilderForOverride(mailCfgBuilder)
+        }
+
+        compiledExcludePattern?.run {
+            val to = mailCfgBuilder.to
+            val cc = mailCfgBuilder.cc
+            val bcc = mailCfgBuilder.bcc
+
+            mailCfgBuilder.clearTo()
+                    .clearCC()
+                    .clearBCC()
+                    .addTo(*to.filterNot { compiledExcludePattern.matcher(it.email).matches() }.toTypedArray())
+                    .addCC(*cc.filterNot { compiledExcludePattern.matcher(it.email).matches() }.toTypedArray())
+                    .addBCC(*bcc.filterNot { compiledExcludePattern.matcher(it.email).matches() }.toTypedArray())
+        }
+
+        return if (mailCfgBuilder.isNoEmailProvided()) {
+            MailConfig.Builder.EMPTY_MAIL_BUILDER
+        } else {
+            mailCfgBuilder
+        }
+    }
 
     internal fun needToModifyMailConfigBuilder(mailCfgBuilder: MailConfig.Builder): Boolean =
             isOverrideEnabled &&
@@ -48,17 +82,13 @@ open class MailServiceHelper(
                             || mailCfgBuilder.cc.isNotEmpty()
                             || mailCfgBuilder.bcc.isNotEmpty())
 
-    internal fun needToModifyMailConfig(mailCfg: MailConfig): Boolean =
-            isOverrideEnabled &&
-                    (mailCfg.to.size > 1 || mailCfg.to.isEmpty() || mailCfg.to[0].email != overrideAddress.email
-                            || mailCfg.cc.isNotEmpty()
-                            || mailCfg.bcc.isNotEmpty())
-
-    private fun doModifyMailConfigBuilder(mailCfgBuilder: MailConfig.Builder): MailConfig.Builder {
-        mailCfgBuilder.clearBCC()
-        mailCfgBuilder.clearCC()
-        mailCfgBuilder.clearTo()
-        mailCfgBuilder.addTo(overrideAddress.email, overrideAddress.name)
+    private fun doModifyMailConfigBuilderForOverride(mailCfgBuilder: MailConfig.Builder): MailConfig.Builder {
+        if (isOverrideEnabled) {
+            mailCfgBuilder.clearBCC()
+            mailCfgBuilder.clearCC()
+            mailCfgBuilder.clearTo()
+            mailCfgBuilder.addTo(overrideAddress.email, overrideAddress.name)
+        }
 
         return mailCfgBuilder
     }

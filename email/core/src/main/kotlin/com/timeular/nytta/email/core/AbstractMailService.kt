@@ -23,7 +23,11 @@ abstract class AbstractMailService(
 
         val correctedCtx = mailServiceHelper.modifyTemplateContextForOverride(mailContext, mailCfgBuilder)
 
-        mailCfgBuilder = mailServiceHelper.modifyMailConfigBuilderForOverride(mailCfgBuilder)
+        mailCfgBuilder = mailServiceHelper.modifyMailConfigBuilder(mailCfgBuilder)
+
+        if(mailCfgBuilder.isNoEmailProvided()){
+            return false
+        }
 
         mailCfgBuilder.deliveryTime(deliveryTime)
 

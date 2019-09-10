@@ -177,10 +177,15 @@ There are currently two properties you can use override the e-mail receiver glob
 ```properties
 mail.test.override.enabled = false
 mail.test.override.receiver = invalid@timeular.com
-
 ```
 
 The values above are the default values.
+
+If you want to exclude email addresses from being delivered you can define an exclude pattern (e.g. for load tests):
+
+```
+mail.test.excludePattern=.*@test.mail.com
+```
 
 ## License
 

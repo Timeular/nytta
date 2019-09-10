@@ -94,7 +94,8 @@ Create the `MailServiceHelper`:
 ```kotlin
 val isOverrideEnabled = false // override all receivers
 val overrideAddressString = "" // mail address the receivers will be overridden with 
-val mailServiceHelper = MailServiceHelper(isOverrideEnabled, overrideAddressString)
+val excludePattern = ".*@test.mail.com" // defines email addresses which will be ignored
+val mailServiceHelper = MailServiceHelper(isOverrideEnabled, overrideAddressString, excludePattern)
 ```
 
 Create the `MailTemplateContentBuilder`:

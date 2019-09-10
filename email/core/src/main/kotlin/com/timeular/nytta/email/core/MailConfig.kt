@@ -21,6 +21,9 @@ class MailConfig private constructor(builder: Builder) {
     companion object {
         @JvmStatic
         fun newBuilder() = Builder()
+
+        @JvmStatic
+        val EMPTY_MAIL_CONFIG = MailConfig(Builder.EMPTY_MAIL_BUILDER)
     }
 
     val from: MailContact
@@ -46,6 +49,9 @@ class MailConfig private constructor(builder: Builder) {
         tag = builder.tag
         inlineAttachments = builder.inlineAttachments
     }
+
+    fun isNoEmailProvided(): Boolean =
+            to.isEmpty() && cc.isEmpty() && bcc.isEmpty()
 
     class Builder {
 
@@ -83,6 +89,9 @@ class MailConfig private constructor(builder: Builder) {
 
                 return builder
             }
+
+            @JvmStatic
+            val EMPTY_MAIL_BUILDER = Builder().from("nobody@here.me")
         }
 
         internal var from: MailContact? = null
@@ -116,13 +125,28 @@ class MailConfig private constructor(builder: Builder) {
             return this
         }
 
+        fun addTo(vararg emails: MailContact): Builder {
+            this.to += emails
+            return this
+        }
+
         fun addCC(email: String, name: String? = null): Builder {
             this.cc += MailContact(email, name)
             return this
         }
 
+        fun addCC(vararg emails: MailContact): Builder {
+            this.cc += emails
+            return this
+        }
+
         fun addBCC(email: String, name: String? = null): Builder {
             this.bcc += MailContact(email, name)
+            return this
+        }
+
+        fun addBCC(vararg emails: MailContact): Builder {
+            this.bcc += emails
             return this
         }
 
@@ -179,6 +203,9 @@ class MailConfig private constructor(builder: Builder) {
             return this
         }
 
+        fun isNoEmailProvided(): Boolean =
+                to.isEmpty() && cc.isEmpty() && bcc.isEmpty()
+
         fun build(): MailConfig {
             if (from == null)
                 throw MailConfigurationException("The From field is missing")
@@ -186,7 +213,7 @@ class MailConfig private constructor(builder: Builder) {
             if (subject.isBlank())
                 throw MailConfigurationException("Subject is not allowed to be blank")
 
-            if (to.isEmpty() && cc.isEmpty() && bcc.isEmpty())
+            if (isNoEmailProvided())
                 throw MailConfigurationException("You have to at least configure one of the following: TO, CC, BCC")
 
             if (text.isBlank() && html.isBlank())
