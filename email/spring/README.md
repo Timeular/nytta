@@ -4,7 +4,7 @@ The Nytta spring-email module provides spring configuration for the [nytta email
 
 ## Latest release
 
-The most recent release is spring-email 2.2.1, released March 18, 2019.
+The most recent release is spring-email 2.3.0, released September 24, 2019.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is spring-email 2.2.1, released March 18, 2019.
 <dependency>
   <groupId>com.timeular.nytta.email</groupId>
   <artifactId>spring</artifactId>
-  <version>2.2.1</version>
+  <version>2.3.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is spring-email 2.2.1, released March 18, 2019.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.email:spring:2.2.1'
+compile 'com.timeular.nytta.email:spring:2.3.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.email", name = "spring", version = "2.2.1")
+compile(group = "com.timeular.nytta.email", name = "spring", version = "2.3.0")
 ```
 
 ### Manual
@@ -65,7 +65,7 @@ In order to configure the different components of the email module, you can simp
 Full configuration example:
 
 The `MailgunMailService`, `DbPersistentMailService` and the `SendAndPersistMailService`, which send the email
-via `mailgun` and persist 
+via `mailgun` and persist
 
 ```kotlin
 @Configuration
@@ -120,6 +120,7 @@ class MailConfiguration {
             sendMails
     )
 ```
+
 The `StringMailService`, which returns a stringified version of an email
 
 ```kotlin
@@ -132,6 +133,7 @@ The `StringMailService`, which returns a stringified version of an email
             mailServiceHelper
     )
 ```
+
 A custom email template:
 
 ```kotlin
