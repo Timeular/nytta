@@ -4,4 +4,4 @@ The Nytta email project intents to have a simple email and templating integratio
 two subprojects:
 
 - [Email Core](core/README.md)
-- [Email Spring](core/README.md)
+- [Email Spring](spring/README.md)
