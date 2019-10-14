@@ -10,7 +10,7 @@ To read more about the nytta helpers visit the different readme files of the mod
 * [iHop](ihop/README.md)
 * [Tracking](tracking/README.md)
 * [E-Mail](email/README.md)
-* [Spring E-Mail](spring-email/README.md)
+* [Prova](prova/README.md)
 
 ## Development
 
