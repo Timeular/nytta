@@ -4,7 +4,32 @@ The Nytta prova hamkrest module provides helpers and services for handling tests
 
 ## Latest release
 
-TBD
+e most recent release is prova-hamkrest 2.4.0, released October 24, 2019.
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.timeular.nytta.prova</groupId>
+  <artifactId>hamkrest</artifactId>
+  <version>2.4.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+// Gradle Groovy DSL
+compile 'com.timeular.nytta.prova:hamkrest:2.4.0'
+
+// Gradle Kotlin DSL
+compile(group = "com.timeular.nytta.prova", name = "hamkrest", version = "2.4.0")
+```
+
+### Manual
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.prova/hamkrest/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.prova/hamkrest/badge.svg)
+Download the latest release from the maven central repository and add the jar file to you classpath.
 
 ## Requirements
 

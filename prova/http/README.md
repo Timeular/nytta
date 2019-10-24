@@ -4,7 +4,32 @@ The Nytta prova http module testing helpers which for hamkrest around the [nytta
 
 ## Latest release
 
-TBD
+The most recent release is prova-http 2.4.0, released October 24, 2019.
+
+### Maven
+
+```xml
+<dependency>
+  <groupId>com.timeular.nytta.prova</groupId>
+  <artifactId>http</artifactId>
+  <version>2.4.0</version>
+</dependency>
+```
+
+### Gradle
+
+```gradle
+// Gradle Groovy DSL
+compile 'com.timeular.nytta.prova:http:2.4.0'
+
+// Gradle Kotlin DSL
+compile(group = "com.timeular.nytta.prova", name = "http", version = "2.4.0")
+```
+
+### Manual
+
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.prova/http/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.timeular.nytta.prova/http/badge.svg)
+Download the latest release from the maven central repository and add the jar file to you classpath.
 
 ## Requirements
 

@@ -4,7 +4,7 @@ The Nytta Http Client is a slim wrapper around [OkHttp http client](https://gith
 
 ## Latest release
 
-The most recent release is http-client 2.3.1, released September 30, 2019.
+The most recent release is http-client 2.4.0, released October 24, 2019.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is http-client 2.3.1, released September 30, 2019.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>http-client</artifactId>
-  <version>2.3.1</version>
+  <version>2.4.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is http-client 2.3.1, released September 30, 2019.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:http-client:2.3.1'
+compile 'com.timeular.nytta:http-client:2.4.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "http-client", version = "2.3.1")
+compile(group = "com.timeular.nytta", name = "http-client", version = "2.4.0")
 ```
 
 ### Manual
