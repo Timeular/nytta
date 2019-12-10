@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.timeular.nytta</groupId>
         <artifactId>parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.timeular.nytta.email</groupId>
     <artifactId>email-parent</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Timeular Nytta Email</name>

@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.timeular.nytta</groupId>
         <artifactId>parent</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>spring-ext</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <name>Timeular Nytta Spring Extensions</name>
     <description>This is a helper module to provide additional functionality regarding spring/spring-boot.</description>
