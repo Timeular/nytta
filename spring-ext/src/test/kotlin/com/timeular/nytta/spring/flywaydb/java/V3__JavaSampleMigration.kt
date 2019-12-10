@@ -11,6 +11,6 @@ class V3__JavaSampleMigration : BaseJavaMigration() {
     }
 
     override fun migrate(context: Context?) {
-        logger.info("Migration done!")
+        logger.info("Java Migration done!")
     }
 }
