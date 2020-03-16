@@ -18,32 +18,18 @@ import java.util.*
 const val NANO_TO_MILLIS = 1000000
 const val MILLIS_TO_MIN = 1000 * 60
 const val MILLIS_TO_HOURS = MILLIS_TO_MIN * 60
+const val DATE_PATTERN_WITHOUT_TIMEZONE = "uuuu-MM-dd'T'HH:mm:ss.SSS"
+const val DATE_PATTERN_WITH_TIMEZONE = "${DATE_PATTERN_WITHOUT_TIMEZONE}Z"
 
-private val dateFormatterWithTimeZone = createDateTimeFormatter(true)
-private val dateFormatterWithoutTimeZone = createDateTimeFormatter(false)
+private val dateFormatterWithTimeZone = createDateTimeFormatter(DATE_PATTERN_WITH_TIMEZONE)
+private val dateFormatterWithoutTimeZone = createDateTimeFormatter(DATE_PATTERN_WITHOUT_TIMEZONE)
 
-private fun createDateTimeFormatter(withTimeZoneOffset: Boolean): DateTimeFormatter {
-    val builder = DateTimeFormatterBuilder()
-            .parseCaseInsensitive()
-            .appendValue(ChronoField.YEAR, 4)
-            .appendLiteral('-')
-            .appendValue(ChronoField.MONTH_OF_YEAR, 2)
-            .appendLiteral('-')
-            .appendValue(ChronoField.DAY_OF_MONTH, 2)
-            .appendLiteral('T')
-            .appendValue(ChronoField.HOUR_OF_DAY, 2)
-            .appendLiteral(':')
-            .appendValue(ChronoField.MINUTE_OF_HOUR, 2)
-            .appendLiteral(':')
-            .appendValue(ChronoField.SECOND_OF_MINUTE, 2)
-            .appendLiteral('.')
-            .appendValue(ChronoField.MILLI_OF_SECOND, 3)
-
-    if (withTimeZoneOffset) builder.appendOffset("+HHMM", "+0000")
-    return builder
-            .toFormatter(Locale.UK)
-            .withResolverStyle(ResolverStyle.STRICT)
-}
+private fun createDateTimeFormatter(pattern: String): DateTimeFormatter =
+        DateTimeFormatterBuilder()
+                .parseCaseInsensitive()
+                .appendPattern(pattern)
+                .toFormatter(Locale.UK)
+                .withResolverStyle(ResolverStyle.STRICT)
 
 fun dateTimeFormatter(withTimeZoneOffset: Boolean): DateTimeFormatter =
         if (withTimeZoneOffset) {

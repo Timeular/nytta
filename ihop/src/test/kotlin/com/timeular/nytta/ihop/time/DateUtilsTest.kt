@@ -3,6 +3,7 @@ package com.timeular.nytta.ihop.time
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import org.junit.jupiter.api.Test
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 class DateUtilsTest {
@@ -11,8 +12,19 @@ class DateUtilsTest {
     fun testDateTimeFormatter() {
         val date = ZonedDateTime.parse("2018-05-18T12:40:30.304+01:00")
 
-        assertThat(dateTimeFormatter(false).format(date), equalTo("2018-05-18T12:40:30.304"))
-        assertThat(dateTimeFormatter(true).format(date), equalTo("2018-05-18T12:40:30.304+0100"))
+        var formattedDate = dateTimeFormatter(false).format(date)
+        assertThat(formattedDate, equalTo("2018-05-18T12:40:30.304"))
+        assertThat(
+                LocalDateTime.from(dateTimeFormatter(false).parse(formattedDate)),
+                equalTo(date.toLocalDateTime())
+        )
+
+        formattedDate =dateTimeFormatter(true).format(date)
+        assertThat(formattedDate, equalTo("2018-05-18T12:40:30.304+0100"))
+        assertThat(
+                ZonedDateTime.from(dateTimeFormatter(true).parse(formattedDate)),
+                equalTo(date)
+        )
     }
 
     @Test
