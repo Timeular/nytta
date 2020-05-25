@@ -13,7 +13,9 @@ import java.util.concurrent.TimeUnit
  * {@link HttpClient} implementation which wraps okHttp client
  */
 open class OkHttpClient(
-        val timeoutInSeconds: Long = 10
+        val timeoutInSeconds: Long = 10,
+        val logSlowRequests: Boolean = false,
+        val slowRequestLimitInSeconds: Long = 9
 ) : HttpClient {
 
     private companion object {
@@ -90,6 +92,19 @@ open class OkHttpClient(
                 .method(httpMethod.name, body)
                 .build()
         val response = okHttpClient.newCall(request).execute()
+
+        if (logSlowRequests) {
+            val duration = (response.sentRequestAtMillis - response.receivedResponseAtMillis) / 1000
+            if (duration >= slowRequestLimitInSeconds) {
+                logger.warn(
+                        "Slow Request Detected - URL: {} - {}, StatusCode: {}, Duration: {}s",
+                        request.method,
+                        request.url,
+                        response.code,
+                        duration
+                )
+            }
+        }
 
         if (logger.isTraceEnabled) {
             logger.trace(

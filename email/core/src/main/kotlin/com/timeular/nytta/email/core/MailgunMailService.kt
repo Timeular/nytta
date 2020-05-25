@@ -1,6 +1,7 @@
 package com.timeular.nytta.email.core
 
 import com.google.common.base.Preconditions.checkNotNull
+import com.google.gson.JsonNull
 import com.google.gson.JsonParser
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType
@@ -20,7 +21,6 @@ open class MailgunMailService(
 ) : AbstractMailService(mailTemplateContentBuilder, mailServiceHelper) {
 
     private val okHttpClient: okhttp3.OkHttpClient
-    private val jsonParser = JsonParser()
 
     init {
         checkNotNull(baseUrl, "You have to provide a valid base url - pls look at the mailgun site to find it.")
@@ -60,7 +60,7 @@ open class MailgunMailService(
 
         okHttpClient.newCall(requestBuilder.build()).execute().use { response ->
             if (!response.isSuccessful) {
-                val responseBody = jsonParser.parse(response.body?.string() ?: "")
+                val responseBody = response.body?.string()?.let { JsonParser.parseString(it) } ?: JsonNull.INSTANCE
                 logger.info(
                         "Unable to send email ({}): http status: {} - {}",
                         mailCfg.to,
