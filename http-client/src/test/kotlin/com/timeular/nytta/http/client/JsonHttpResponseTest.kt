@@ -5,7 +5,6 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonNull
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import okhttp3.Headers
 import org.junit.jupiter.api.Test
 
 internal class JsonHttpResponseTest : AbstractHttpResponseTest() {

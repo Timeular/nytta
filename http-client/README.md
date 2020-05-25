@@ -41,7 +41,7 @@ nytta http client is compiled against JDK8+ and has the following required depen
 - guava
 - slf4j
 
-Additionaly you can put `spring-retry` on the class path to use the `RetryableHttpClient`.
+Additionally you can put `spring-retry` on the class path to use the `RetryableHttpClient`.
 
 ## Usage
 
@@ -87,7 +87,7 @@ val url = UrlBuilder.newBuilder()
 
 #### RetryableHttpClient
 
-As an example of how to instanziate the `RetryableHttpClient`, we will use an annotation-based spring 
+As an example of how to instantiate the `RetryableHttpClient`, we will use an annotation-based spring 
 configuration, because this way we can also see how you can use it without the spring framework.
 
 **Note:** spring-retry is always required to use the `RetryableHttpClient`.

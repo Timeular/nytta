@@ -1,6 +1,7 @@
 spring:
   main:
     allow-bean-definition-overriding: true
+    banner-mode: off
   flyway:
     enabled: true
     sql-migration-suffixes: ".sql"
@@ -11,10 +12,3 @@ spring:
     validate-on-migrate: true
     clean-on-validation-error: false
     encoding: "UTF-8"
-  datasource:
-    driver-class-name: "org.h2.Driver"
-    url: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;IGNORECASE=TRUE"
-    validation-query: SELECT 1
-    tomcat:
-      max-active: 30
-      max-idle: 5
