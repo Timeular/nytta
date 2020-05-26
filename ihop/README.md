@@ -35,8 +35,8 @@ Download the latest release from the maven central repository and add the jar fi
 
 ### UUIDGenerator
 
-This UUIDGenerator contains an interface and an simple implementation using javas `UUID` class
-for generating an unique code. The main purpose of this combination is to have a simpler time
+This UUIDGenerator contains an interface and a simple implementation using javas `UUID` class
+for generating a unique code. The main purpose of this combination is to have a simpler time
 when testing UUIDs.
 
 ```kotlin
@@ -81,7 +81,7 @@ TBD
 
 ### MemAnalyzer
 
-Util class to helping getting a rough feeling for the memory consumption.
+Util class to help getting a rough feeling for the memory consumption.
 
 ```kotlin
 val analyzer = MemAnalyzer()
