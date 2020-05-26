@@ -6,7 +6,9 @@ jdk:
   - oraclejdk11
   - openjdk8
   - openjdk10
-  - openjdk11  
+  - openjdk11
+  - openjdk13
+  - openjdk14
 
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
