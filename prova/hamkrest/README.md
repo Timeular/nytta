@@ -4,7 +4,7 @@ The Nytta prova hamkrest module provides helpers and services for handling tests
 
 ## Latest release
 
-e most recent release is prova-hamkrest 3.0.0, released December 10, 2019.
+e most recent release is prova-hamkrest 3.1.0, released May 28, 2020.
 
 ### Maven
 
@@ -12,7 +12,7 @@ e most recent release is prova-hamkrest 3.0.0, released December 10, 2019.
 <dependency>
   <groupId>com.timeular.nytta.prova</groupId>
   <artifactId>hamkrest</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ e most recent release is prova-hamkrest 3.0.0, released December 10, 2019.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.prova:hamkrest:3.0.0'
+compile 'com.timeular.nytta.prova:hamkrest:3.1.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.prova", name = "hamkrest", version = "3.0.0")
+compile(group = "com.timeular.nytta.prova", name = "hamkrest", version = "3.1.0")
 ```
 
 ### Manual

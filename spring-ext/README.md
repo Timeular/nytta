@@ -5,7 +5,7 @@ life with spring easier.
 
 ## Latest release
 
-The most recent release is spring-ext 3.0.0, released December 10, 2019.
+The most recent release is spring-ext 3.1.0, released May 28, 2020.
 
 ### Maven
 
@@ -13,7 +13,7 @@ The most recent release is spring-ext 3.0.0, released December 10, 2019.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>spring-ext</artifactId>
-  <version>3.0.0</version>
+  <version>3.1.0</version>
 </dependency>
 ```
 
@@ -21,10 +21,10 @@ The most recent release is spring-ext 3.0.0, released December 10, 2019.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:spring-ext:3.0.0'
+compile 'com.timeular.nytta:spring-ext:3.1.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "spring-ext", version = "3.0.0")
+compile(group = "com.timeular.nytta", name = "spring-ext", version = "3.1.0")
 ```
 
 ### Manual
