@@ -9,6 +9,7 @@ jdk:
   - openjdk11
   - openjdk13
   - openjdk14
+  - openjdk15
 
 install: mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
