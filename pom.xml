@@ -4,7 +4,7 @@
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>parent</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Timeular Nytta</name>
@@ -130,7 +130,7 @@
         <connection>scm:git:git://github.com/Timeular/nytta.git</connection>
         <developerConnection>scm:git:git@github.com:Timeular/nytta.git</developerConnection>
         <url>https://github.com/Timeular/nytta/tree/master</url>
-      <tag>4.0.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
