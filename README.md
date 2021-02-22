@@ -36,10 +36,22 @@ the following command in the root folder.
 mvn clean deploy
 ```
 
-For releases the maven release plugin is used. Therefore you have to execute two separate command:
+For releases you have to proceed the following steps:
 
 ```bash
-mvn release:prepare
+# set version to new target version
+mvn versions:set -DnewVersion=4.0.0
 
-mvn release:perform
+# git add and commit push to git repo
+# tag version
+git ci -am "Release to Version 4.0.0"
+git tag -a "4.0.0" -m "Release 4.0.0"
+
+git push 
+git push --tags
+
+mvn clean deploy -P release
+
+# set to next version
+mvn versions:set -DnewVersion=4.0.1-SNAPSHOT
 ```
