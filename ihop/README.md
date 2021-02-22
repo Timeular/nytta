@@ -4,7 +4,7 @@ The Nytta ihop consists of various small helping configurations.
 
 ## Latest release
 
-The most recent release is ihop 3.1.0, released May 28, 2020.
+The most recent release is ihop 4.0.0, released February 01, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is ihop 3.1.0, released May 28, 2020.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>ihop</artifactId>
-  <version>3.1.0</version>
+  <version>4.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is ihop 3.1.0, released May 28, 2020.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:ihop:3.1.0'
+compile 'com.timeular.nytta:ihop:4.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "ihop", version = "3.1.0")
+compile(group = "com.timeular.nytta", name = "ihop", version = "4.0.0")
 ```
 
 ### Manual

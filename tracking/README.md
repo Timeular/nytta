@@ -4,7 +4,7 @@ The Nytta tracking module consists of a server-side tracking integrations (curre
 
 ## Latest release
 
-The most recent release is tracking 3.1.0, released May 28, 2020.
+The most recent release is tracking 4.0.0, released February 01, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is tracking 3.1.0, released May 28, 2020.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>tracking</artifactId>
-  <version>3.1.0</version>
+  <version>4.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is tracking 3.1.0, released May 28, 2020.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:tracking:3.1.0'
+compile 'com.timeular.nytta:tracking:4.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "tracking", version = "3.1.0")
+compile(group = "com.timeular.nytta", name = "tracking", version = "4.0.0")
 ```
 
 ### Manual
@@ -35,12 +35,10 @@ Download the latest release from the maven central repository and add the jar fi
 
 nytta tracking is compiled against JDK8+ and has the following required dependencies:
 
-- nytta http-client
-  - okhttp3
-  - gson
-  - kotson
-  - guava
-  - slf4j
+- okhttp3
+- gson
+- kotson
+- slf4j
 
 ## Usage
 
@@ -53,7 +51,7 @@ instance directly or assign it to a context where you have static access everywh
 
 ```java
     TrackerContext.initialize(
-            new MixpanelTracker(new OkHttpClient(30), "your-token"),
+            new MixpanelTracker(new OkHttpClient(), "your-token"),
             true
     );
 ```
@@ -72,14 +70,11 @@ class TrackingConfiguration {
             @Value("\${tracking.enabled}")
             trackingEnabled: Boolean,
             @Value("\${tracking.token}")
-            trackerToken: String,
-            @Value("\${tracking.gdpr-token}")
-            gpdrToken: String
+            trackerToken: String
     ): Tracker {
         val mixpanelTracker = MixpanelTracker(
                 token = trackerToken,
-                httpClient = OkHttpClient(60),
-                gdprToken = gpdrToken
+                httpClient = OkHttpClient()
         )
 
         TrackerContext.initialize(
@@ -99,7 +94,6 @@ to the `TrackerContext`.
 tracking:
   enabled: ${TRACKING_ENABLED:false}
   token: ${MIX_PANEL_TOKEN:your-token}
-  gdpr-token: ${MIX_PANEL_GDPR_TOKEN:your-gdpr-token}
 ````
 
 ### Tracking & updating a profile

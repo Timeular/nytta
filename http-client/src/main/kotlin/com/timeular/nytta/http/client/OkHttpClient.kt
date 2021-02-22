@@ -13,20 +13,28 @@ import java.util.concurrent.TimeUnit
  * {@link HttpClient} implementation which wraps okHttp client
  */
 open class OkHttpClient(
-        val timeoutInSeconds: Long = 10,
-        val logSlowRequests: Boolean = false,
-        val slowRequestLimitInSeconds: Long = 9
+    private val okHttpClient: okhttp3.OkHttpClient,
+    private val logSlowRequests: Boolean = false,
+    private val slowRequestLimitInSeconds: Long = 9
 ) : HttpClient {
+
+    constructor(
+        timeoutInSeconds: Long = 10,
+        logSlowRequests: Boolean = false,
+        slowRequestLimitInSeconds: Long = 9
+    ) : this(
+        okHttpClient = okhttp3.OkHttpClient.Builder()
+            .connectTimeout(timeoutInSeconds, TimeUnit.SECONDS)
+            .writeTimeout(timeoutInSeconds, TimeUnit.SECONDS)
+            .readTimeout(timeoutInSeconds, TimeUnit.SECONDS)
+            .build(),
+        logSlowRequests = logSlowRequests,
+        slowRequestLimitInSeconds = slowRequestLimitInSeconds
+    )
 
     private companion object {
         private val logger = LoggerFactory.getLogger(OkHttpClient::class.java)
     }
-
-    private val okHttpClient: okhttp3.OkHttpClient = okhttp3.OkHttpClient.Builder()
-            .connectTimeout(timeoutInSeconds, TimeUnit.SECONDS)
-            .writeTimeout(timeoutInSeconds, TimeUnit.SECONDS)
-            .readTimeout(timeoutInSeconds, TimeUnit.SECONDS)
-            .build()
 
     override fun request(
             httpMethod: HttpMethod,

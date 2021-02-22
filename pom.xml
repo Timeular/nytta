@@ -4,7 +4,7 @@
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>parent</artifactId>
-    <version>4.0.0</version>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Timeular Nytta</name>
@@ -23,8 +23,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j.version>1.7.30</slf4j.version>
-        <junit.jupiter.version>5.7.0</junit.jupiter.version>
-        <kotlin.version>1.4.21-2</kotlin.version>
+        <junit.jupiter.version>5.7.1</junit.jupiter.version>
+        <kotlin.version>1.4.30</kotlin.version>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <hamkrest.version>1.8.0.1</hamkrest.version>
     </properties>
