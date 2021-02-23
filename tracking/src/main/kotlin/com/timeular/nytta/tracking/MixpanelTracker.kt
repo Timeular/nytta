@@ -103,6 +103,7 @@ class MixpanelTracker @JvmOverloads constructor(
                 .headers(
                     Headers.Builder()
                         .add("Accept", TEXT_PLAIN)
+                        .add("Content-Type", "application/x-www-form-urlencoded")
                         .build()
                 )
                 .post(FormBody.Builder().add("data", data).build())
