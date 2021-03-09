@@ -7,6 +7,8 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.ResponseBody
 import org.slf4j.LoggerFactory
+import java.time.Instant
+import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 /**
@@ -99,18 +101,22 @@ open class OkHttpClient(
                 .headers(headers.toHeader())
                 .method(httpMethod.name, body)
                 .build()
-        val response = okHttpClient.newCall(request).execute()
 
-        if (logSlowRequests) {
-            val duration = (response.sentRequestAtMillis - response.receivedResponseAtMillis) / 1000
-            if (duration >= slowRequestLimitInSeconds) {
-                logger.warn(
-                        "Slow Request Detected - URL: {} - {}, StatusCode: {}, Duration: {}s",
-                        request.method,
-                        request.url,
-                        response.code,
-                        duration
-                )
+        val start = Instant.now()
+        val response = try {
+            okHttpClient.newCall(request).execute()
+        } finally {
+            val stop = Instant.now()
+            if (logSlowRequests) {
+                val duration = (stop.toEpochMilli() - start.toEpochMilli()) / 1000
+                if (duration >= slowRequestLimitInSeconds) {
+                    logger.warn(
+                            "Slow Request Detected - URL: {} - {}, Duration: {}s",
+                            request.method,
+                            request.url,
+                            duration
+                    )
+                }
             }
         }
 
