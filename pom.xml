@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.timeular.nytta</groupId>
@@ -24,7 +25,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j.version>1.7.30</slf4j.version>
         <junit.jupiter.version>5.7.1</junit.jupiter.version>
-        <kotlin.version>1.4.30</kotlin.version>
+        <kotlin.version>1.5.21</kotlin.version>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <hamkrest.version>1.8.0.1</hamkrest.version>
     </properties>
@@ -130,8 +131,8 @@
         <connection>scm:git:git://github.com/Timeular/nytta.git</connection>
         <developerConnection>scm:git:git@github.com:Timeular/nytta.git</developerConnection>
         <url>https://github.com/Timeular/nytta/tree/master</url>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
 
     <developers>
         <developer>
