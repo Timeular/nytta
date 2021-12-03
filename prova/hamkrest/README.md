@@ -4,7 +4,7 @@ The Nytta prova hamkrest module provides helpers and services for handling tests
 
 ## Latest release
 
-e most recent release is prova-hamkrest 4.0.0, released February 01, 2021.
+e most recent release is prova-hamkrest 5.0.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ e most recent release is prova-hamkrest 4.0.0, released February 01, 2021.
 <dependency>
   <groupId>com.timeular.nytta.prova</groupId>
   <artifactId>hamkrest</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ e most recent release is prova-hamkrest 4.0.0, released February 01, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.prova:hamkrest:4.0.0'
+compile 'com.timeular.nytta.prova:hamkrest:5.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.prova", name = "hamkrest", version = "4.0.0")
+compile(group = "com.timeular.nytta.prova", name = "hamkrest", version = "5.0.0")
 ```
 
 ### Manual
@@ -75,4 +75,4 @@ assertThat(listOf(1, 2, 1, 2), containsDuplicates())
 
 The nytta email module is released under version 2.0 of the [Apache License][].
 
-[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+[apache license]: http://www.apache.org/licenses/LICENSE-2.0

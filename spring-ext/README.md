@@ -5,7 +5,7 @@ life with spring easier.
 
 ## Latest release
 
-The most recent release is spring-ext 4.0.0, released February 01, 2021.
+The most recent release is spring-ext 5.0.0, released December 03, 2021.
 
 ### Maven
 
@@ -13,7 +13,7 @@ The most recent release is spring-ext 4.0.0, released February 01, 2021.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>spring-ext</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -21,10 +21,10 @@ The most recent release is spring-ext 4.0.0, released February 01, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:spring-ext:4.0.0'
+compile 'com.timeular.nytta:spring-ext:5.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "spring-ext", version = "4.0.0")
+compile(group = "com.timeular.nytta", name = "spring-ext", version = "5.0.0")
 ```
 
 ### Manual
@@ -102,4 +102,4 @@ are sticking to the component scan then you are done for know - the `Migration` 
 
 The nytta spring extension project is released under version 2.0 of the [Apache License][].
 
-[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+[apache license]: http://www.apache.org/licenses/LICENSE-2.0

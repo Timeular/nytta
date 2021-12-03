@@ -4,7 +4,7 @@ The Nytta Http Client is a slim wrapper around [OkHttp http client](https://gith
 
 ## Latest release
 
-The most recent release is http-client 4.0.0, released February 01, 2021.
+The most recent release is http-client 5.0.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is http-client 4.0.0, released February 01, 2021.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>http-client</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is http-client 4.0.0, released February 01, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:http-client:4.0.0'
+compile 'com.timeular.nytta:http-client:5.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "http-client", version = "4.0.0")
+compile(group = "com.timeular.nytta", name = "http-client", version = "5.0.0")
 ```
 
 ### Manual
@@ -87,7 +87,7 @@ val url = UrlBuilder.newBuilder()
 
 #### RetryableHttpClient
 
-As an example of how to instantiate the `RetryableHttpClient`, we will use an annotation-based spring 
+As an example of how to instantiate the `RetryableHttpClient`, we will use an annotation-based spring
 configuration, because this way we can also see how you can use it without the spring framework.
 
 **Note:** spring-retry is always required to use the `RetryableHttpClient`.
@@ -131,4 +131,4 @@ class HttpClientSpringConfiguration {
 
 The nytta http client is released under version 2.0 of the [Apache License][].
 
-[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+[apache license]: http://www.apache.org/licenses/LICENSE-2.0

@@ -4,7 +4,7 @@ The Nytta prova http module testing helpers which for hamkrest around the [nytta
 
 ## Latest release
 
-The most recent release is prova-http 4.0.0, released February 01, 2021.
+The most recent release is prova-http 5.0.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is prova-http 4.0.0, released February 01, 2021.
 <dependency>
   <groupId>com.timeular.nytta.prova</groupId>
   <artifactId>http</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is prova-http 4.0.0, released February 01, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.prova:http:4.0.0'
+compile 'com.timeular.nytta.prova:http:5.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.prova", name = "http", version = "4.0.0")
+compile(group = "com.timeular.nytta.prova", name = "http", version = "5.0.0")
 ```
 
 ### Manual
@@ -111,4 +111,4 @@ private fun createHttpResponse(status: Int) = TextHttpResponse(
 
 The nytta email module is released under version 2.0 of the [Apache License][].
 
-[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+[apache license]: http://www.apache.org/licenses/LICENSE-2.0

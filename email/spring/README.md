@@ -4,7 +4,7 @@ The Nytta spring-email module provides spring configuration for the [nytta email
 
 ## Latest release
 
-The most recent release is spring-email 4.0.0, released February 01, 2021.
+The most recent release is spring-email 5.0.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is spring-email 4.0.0, released February 01, 2021.
 <dependency>
   <groupId>com.timeular.nytta.email</groupId>
   <artifactId>spring</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is spring-email 4.0.0, released February 01, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.email:spring:4.0.0'
+compile 'com.timeular.nytta.email:spring:5.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.email", name = "spring", version = "4.0.0")
+compile(group = "com.timeular.nytta.email", name = "spring", version = "5.0.0")
 ```
 
 ### Manual
@@ -193,4 +193,4 @@ mail.test.excludePattern=.*@test.mail.com
 
 The nytta email module is released under version 2.0 of the [Apache License][].
 
-[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+[apache license]: http://www.apache.org/licenses/LICENSE-2.0

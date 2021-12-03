@@ -4,7 +4,7 @@ The Nytta tracking module consists of a server-side tracking integrations (curre
 
 ## Latest release
 
-The most recent release is tracking 4.0.0, released February 01, 2021.
+The most recent release is tracking 5.0.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is tracking 4.0.0, released February 01, 2021.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>tracking</artifactId>
-  <version>4.0.0</version>
+  <version>5.0.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is tracking 4.0.0, released February 01, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:tracking:4.0.0'
+compile 'com.timeular.nytta:tracking:5.0.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "tracking", version = "4.0.0")
+compile(group = "com.timeular.nytta", name = "tracking", version = "5.0.0")
 ```
 
 ### Manual
@@ -90,11 +90,11 @@ class TrackingConfiguration {
 As you can see in the example above we are initializing an instance of the `MixpanelTracker` and assign it on the fly
 to the `TrackerContext`.
 
-````yaml
+```yaml
 tracking:
   enabled: ${TRACKING_ENABLED:false}
   token: ${MIX_PANEL_TOKEN:your-token}
-````
+```
 
 ### Tracking & updating a profile
 
@@ -114,4 +114,4 @@ TrackerContext.updateProfile(userId, mapOf("key" to "value"))
 
 The nytta tracking is released under version 2.0 of the [Apache License][].
 
-[Apache License]: http://www.apache.org/licenses/LICENSE-2.0
+[apache license]: http://www.apache.org/licenses/LICENSE-2.0
