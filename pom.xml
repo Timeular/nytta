@@ -5,7 +5,7 @@
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>parent</artifactId>
-    <version>5.0.0</version>
+    <version>5.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Timeular Nytta</name>
@@ -23,9 +23,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j.version>1.7.30</slf4j.version>
-        <junit.jupiter.version>5.7.1</junit.jupiter.version>
-        <kotlin.version>1.5.21</kotlin.version>
+        <slf4j.version>1.7.32</slf4j.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <hamkrest.version>1.8.0.1</hamkrest.version>
     </properties>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>1.2.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -94,7 +94,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>30.1-jre</version>
+                <version>31.0.1-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -104,7 +104,7 @@
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
                 <artifactId>okhttp</artifactId>
-                <version>4.9.1</version>
+                <version>4.9.3</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
@@ -207,6 +207,18 @@
                     <nexusUrl>https://oss.sonatype.org/</nexusUrl>
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
+                <dependencies>
+                    <!--
+                    TODO:
+                        Remove after OSSRH-66257, NEXUS-26993 are fixed,
+                        possibly via https://github.com/sonatype/nexus-maven-plugins/pull/91
+                    -->
+                    <dependency>
+                        <groupId>com.thoughtworks.xstream</groupId>
+                        <artifactId>xstream</artifactId>
+                        <version>1.4.15</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
