@@ -4,7 +4,7 @@ The Nytta email module provides helpers and services for handling e-mails in web
 
 ## Latest release
 
-The most recent release is email-core 5.0.0, released December 03, 2021.
+The most recent release is email-core 5.1.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is email-core 5.0.0, released December 03, 2021.
 <dependency>
   <groupId>com.timeular.nytta.email</groupId>
   <artifactId>core</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is email-core 5.0.0, released December 03, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.email:core:5.0.0'
+compile 'com.timeular.nytta.email:core:5.1.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.email", name = "core", version = "5.0.0")
+compile(group = "com.timeular.nytta.email", name = "core", version = "5.1.0")
 ```
 
 ### Manual

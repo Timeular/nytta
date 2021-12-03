@@ -4,7 +4,7 @@ The Nytta tracking module consists of a server-side tracking integrations (curre
 
 ## Latest release
 
-The most recent release is tracking 5.0.0, released December 03, 2021.
+The most recent release is tracking 5.1.0, released December 03, 2021.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is tracking 5.0.0, released December 03, 2021.
 <dependency>
   <groupId>com.timeular.nytta</groupId>
   <artifactId>tracking</artifactId>
-  <version>5.0.0</version>
+  <version>5.1.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is tracking 5.0.0, released December 03, 2021.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta:tracking:5.0.0'
+compile 'com.timeular.nytta:tracking:5.1.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta", name = "tracking", version = "5.0.0")
+compile(group = "com.timeular.nytta", name = "tracking", version = "5.1.0")
 ```
 
 ### Manual
