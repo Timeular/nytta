@@ -14,15 +14,45 @@ internal class MixpanelTrackerTest {
         private const val IDENTIFIER = "spucman"
     }
 
-    private val tracker = MixpanelTracker(
-        token = "token",
-        httpClient = OkHttpClient()
-    )
-
     @Test
     fun testBuildTrackingData() {
         assertThat(
-            tracker.buildTrackingData(IDENTIFIER, "event", null),
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = true,
+                preventLocationUpdate = true
+            ).buildTrackingData(IDENTIFIER, "event", null),
+            equalTo("{\"event\":\"event\",\"properties\":{\"distinct_id\":\"spucman\",\"token\":\"token\",\"ip\":\"0\"}}")
+        )
+
+        assertThat(
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = true,
+                preventLocationUpdate = false
+            ).buildTrackingData(IDENTIFIER, "event", null),
+            equalTo("{\"event\":\"event\",\"properties\":{\"distinct_id\":\"$IDENTIFIER\",\"token\":\"token\"}}")
+        )
+
+        assertThat(
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = false,
+                preventLocationUpdate = true
+            ).buildTrackingData(IDENTIFIER, "event", null),
+            equalTo("{\"event\":\"event\",\"properties\":{\"distinct_id\":\"spucman\",\"token\":\"token\",\"ip\":\"0\"}}")
+        )
+
+        assertThat(
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = false,
+                preventLocationUpdate = false
+            ).buildTrackingData(IDENTIFIER, "event", null),
             equalTo("{\"event\":\"event\",\"properties\":{\"distinct_id\":\"$IDENTIFIER\",\"token\":\"token\"}}")
         )
     }
@@ -30,7 +60,42 @@ internal class MixpanelTrackerTest {
     @Test
     fun testBuildUpdateUserData() {
         assertThat(
-            tracker.buildUpdateUserData(IDENTIFIER, mapOf("property" to "data")),
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = true,
+                preventLocationUpdate = true
+            ).buildUpdateUserData(IDENTIFIER, mapOf("property" to "data")),
+            equalTo("{\"\$token\":\"token\",\"\$distinct_id\":\"spucman\",\"\$set\":{\"property\":\"data\"},\"\$ignore_time\":true,\"\$ip\":\"0\"}")
+        )
+
+        assertThat(
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = true,
+                preventLocationUpdate = false
+            ).buildUpdateUserData(IDENTIFIER, mapOf("property" to "data")),
+            equalTo("{\"\$token\":\"token\",\"\$distinct_id\":\"spucman\",\"\$set\":{\"property\":\"data\"},\"\$ignore_time\":true}")
+        )
+
+        assertThat(
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = false,
+                preventLocationUpdate = true
+            ).buildUpdateUserData(IDENTIFIER, mapOf("property" to "data")),
+            equalTo("{\"\$token\":\"token\",\"\$distinct_id\":\"spucman\",\"\$set\":{\"property\":\"data\"},\"\$ip\":\"0\"}")
+        )
+
+        assertThat(
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient(),
+                preventLastSeenUpdate = false,
+                preventLocationUpdate = false
+            ).buildUpdateUserData(IDENTIFIER, mapOf("property" to "data")),
             equalTo("{\"\$token\":\"token\",\"\$distinct_id\":\"$IDENTIFIER\",\"\$set\":{\"property\":\"data\"}}")
         )
     }
@@ -38,7 +103,10 @@ internal class MixpanelTrackerTest {
     @Test
     fun testBuildDeleteUserData() {
         assertThat(
-            tracker.buildDeleteUserData(IDENTIFIER),
+            MixpanelTracker(
+                token = "token",
+                httpClient = OkHttpClient()
+            ).buildDeleteUserData(IDENTIFIER),
             equalTo("{\"\$token\":\"token\",\"\$distinct_id\":\"$IDENTIFIER\",\"\$delete\":\"\",\"\$ignore_alias\":false}")
         )
     }

@@ -16,6 +16,8 @@ class MixpanelTracker @JvmOverloads constructor(
     private val httpClient: OkHttpClient,
     private val token: String,
     private val area: Area = Area.EU,
+    private val preventLocationUpdate: Boolean = true,
+    private val preventLastSeenUpdate: Boolean = true,
     private val executor: Executor = Executors.newFixedThreadPool(1)
 ) : Tracker {
 
@@ -29,6 +31,9 @@ class MixpanelTracker @JvmOverloads constructor(
 
         private const val RESPONSE_SUCCESS = "1"
         private const val TEXT_PLAIN = "text/plain"
+
+        private const val KEY_IP = "\$ip"
+        private const val KEY_IGNORE_TIME = "\$ignore_time"
 
         private val logger = LoggerFactory.getLogger(MixpanelTracker::class.java)
     }
@@ -131,6 +136,10 @@ class MixpanelTracker @JvmOverloads constructor(
             "token" to token
         )
 
+        if (preventLocationUpdate) {
+            properties.addProperty("ip", "0")
+        }
+
         additionalData?.forEach { (k, v) -> properties.addProperty(k, v) }
 
         return jsonObject(
@@ -139,12 +148,24 @@ class MixpanelTracker @JvmOverloads constructor(
         ).toString()
     }
 
-    internal fun buildUpdateUserData(identifier: String, userData: Map<String, String>): String =
-        jsonObject(
+    internal fun buildUpdateUserData(identifier: String, userData: Map<String, String>): String {
+        val data = jsonObject(
             "\$token" to token,
             "\$distinct_id" to identifier,
             "\$set" to jsonObject(userData.map { Pair(it.key, it.value) })
-        ).toString()
+        )
+
+        if (preventLastSeenUpdate) {
+            data.addProperty(KEY_IGNORE_TIME, true)
+        }
+
+        if (preventLocationUpdate) {
+            data.addProperty(KEY_IP, "0")
+        }
+
+        return data.toString()
+    }
+
 
     internal fun buildDeleteUserData(identifier: String): String =
         jsonObject(
