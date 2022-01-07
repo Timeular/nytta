@@ -14,5 +14,5 @@ CREATE TABLE address
 
   CONSTRAINT address_pkey PRIMARY KEY (id),
   CONSTRAINT address_user_fk FOREIGN KEY (user_id)
-    REFERENCES user (id)
+    REFERENCES "user" (id)
 );

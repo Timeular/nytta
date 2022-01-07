@@ -44,7 +44,7 @@ abstract class DBUnitTest {
 
     private fun initializeDataSource(): JdbcDataSource {
         val ds = JdbcDataSource()
-        ds.setURL("jdbc:h2:~/sample")
+        ds.setURL("jdbc:h2:./target/sample")
         ds.user = "sa"
         ds.password = ""
         return ds
