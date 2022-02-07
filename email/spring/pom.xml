@@ -26,13 +26,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.3.13</version>
+            <version>5.3.15</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf-spring5</artifactId>
-            <version>3.0.13.RELEASE</version>
+            <version>3.0.15.RELEASE</version>
         </dependency>
     </dependencies>
 </project>
