@@ -26,6 +26,7 @@ class MixpanelTracker @JvmOverloads constructor(
         private const val EU_BASE_URL = "https://api-eu.mixpanel.com"
 
         private const val TRACKING_URI = "/track#live-event"
+        private const val CREATE_ALIAS_URI = "/track#identity-create-alias"
         private const val UPDATE_PROFILE_URI = "/engage#profile-set"
         private const val DELETE_PROFILE_URI = "/engage#profile-delete"
 
@@ -34,6 +35,7 @@ class MixpanelTracker @JvmOverloads constructor(
 
         private const val KEY_IP = "\$ip"
         private const val KEY_IGNORE_TIME = "\$ignore_time"
+        private const val EVENT_CREATE_ALIAS = "\$create_alias"
 
         private val logger = LoggerFactory.getLogger(MixpanelTracker::class.java)
     }
@@ -46,16 +48,19 @@ class MixpanelTracker @JvmOverloads constructor(
     private val trackingUrl: String
     private val updateProfileUrl: String
     private val deleteProfileUrl: String
+    private val createAliasUrl: String
 
     init {
         if (area == Area.EU) {
             trackingUrl = "$EU_BASE_URL$TRACKING_URI"
             updateProfileUrl = "$EU_BASE_URL$UPDATE_PROFILE_URI"
             deleteProfileUrl = "$EU_BASE_URL$DELETE_PROFILE_URI"
+            createAliasUrl = "$EU_BASE_URL$CREATE_ALIAS_URI"
         } else {
             trackingUrl = "$US_BASE_URL$TRACKING_URI"
             updateProfileUrl = "$US_BASE_URL$UPDATE_PROFILE_URI"
             deleteProfileUrl = "$US_BASE_URL$DELETE_PROFILE_URI"
+            createAliasUrl = "$US_BASE_URL$CREATE_ALIAS_URI"
         }
     }
 
@@ -80,6 +85,18 @@ class MixpanelTracker @JvmOverloads constructor(
             url = updateProfileUrl,
             data = buildUpdateUserData(identifier, userData),
             errorSubject = "Unable to update userprofile for user ($identifier)"
+        )
+    }
+
+    override fun createAlias(identifier: String, alias: String) {
+        sendDataAsync(
+            url = createAliasUrl,
+            data = buildTrackingData(
+                identifier = identifier,
+                event = EVENT_CREATE_ALIAS,
+                additionalData = mapOf("alias" to alias)
+            ),
+            errorSubject = "Unable to create alias for user $identifier"
         )
     }
 

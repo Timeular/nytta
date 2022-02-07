@@ -162,4 +162,14 @@ internal class MixpanelTrackerTest {
             httpClient = OkHttpClient()
         ).deleteUserProfile(IDENTIFIER)
     }
+
+    @Test
+    @Disabled
+    fun testCreateAlias() {
+        MixpanelTracker(
+            token = API_TOKEN,
+            httpClient = OkHttpClient()
+        ).createAlias(IDENTIFIER, "spuc-spuc-man")
+        Thread.sleep(1000)
+    }
 }

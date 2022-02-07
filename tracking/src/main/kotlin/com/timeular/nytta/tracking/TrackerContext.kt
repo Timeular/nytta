@@ -19,9 +19,9 @@ class TrackerContext : Tracker {
 
         @JvmStatic
         fun track(identifier: String, event: String) = track(
-                identifier = identifier,
-                event = event,
-                additionalData = null
+            identifier = identifier,
+            event = event,
+            additionalData = null
         )
 
         @JvmStatic
@@ -37,6 +37,11 @@ class TrackerContext : Tracker {
         @JvmStatic
         fun updateProfile(identifier: String, userData: Map<String, String>) {
             instance.updateUserProfile(identifier, userData)
+        }
+
+        @JvmStatic
+        fun addAlias(identifier: String, alias: String) {
+            instance.createAlias(identifier, alias)
         }
     }
 
@@ -55,6 +60,12 @@ class TrackerContext : Tracker {
     override fun updateUserProfile(identifier: String, userData: Map<String, String>) {
         executeIfEnabled {
             tracker.updateUserProfile(identifier, userData)
+        }
+    }
+
+    override fun createAlias(identifier: String, alias: String) {
+        executeIfEnabled {
+            tracker.createAlias(identifier, alias)
         }
     }
 

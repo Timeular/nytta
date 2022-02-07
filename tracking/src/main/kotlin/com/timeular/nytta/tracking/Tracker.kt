@@ -28,4 +28,6 @@ interface Tracker {
     )
 
     fun updateUserProfile(identifier: String, userData: Map<String, String>)
+
+    fun createAlias(identifier: String, alias: String)
 }
