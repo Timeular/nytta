@@ -212,11 +212,18 @@
                     TODO:
                         Remove after OSSRH-66257, NEXUS-26993 are fixed,
                         possibly via https://github.com/sonatype/nexus-maven-plugins/pull/91
+                    
+                    Note: right now xstream cannot be upgraded see: https://github.com/x-stream/xstream/issues/263
                     -->
                     <dependency>
                         <groupId>com.thoughtworks.xstream</groupId>
                         <artifactId>xstream</artifactId>
-                        <version>1.4.19</version>
+                        <version>1.4.17</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>xpp3</groupId>
+                        <artifactId>xpp3_min</artifactId>
+                        <version>1.1.4c</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -261,7 +268,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
