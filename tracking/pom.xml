@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.timeular.nytta</groupId>
         <artifactId>parent</artifactId>
-        <version>5.3.0</version>
+        <version>5.3.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>tracking</artifactId>
-    <version>5.3.0</version>
+    <version>5.3.1-SNAPSHOT</version>
 
     <name>Timeular Nytta Tracking</name>
     <description>This module provides basic infrastructure for tracking providers</description>

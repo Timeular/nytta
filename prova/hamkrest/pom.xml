@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.timeular.nytta.prova</groupId>
         <artifactId>prova-parent</artifactId>
-        <version>5.3.0</version>
+        <version>5.3.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>hamkrest</artifactId>
-    <version>5.3.0</version>
+    <version>5.3.1-SNAPSHOT</version>
 
     <name>Timeular Nytta Prova Hamkrest</name>
     <description>This module provides helpers and matchers around the hamkrest framework</description>
