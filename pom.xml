@@ -23,9 +23,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <slf4j.version>1.7.35</slf4j.version>
+        <slf4j.version>1.7.36</slf4j.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
-        <kotlin.version>1.6.10</kotlin.version>
+        <kotlin.version>1.6.21</kotlin.version>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <hamkrest.version>1.8.0.1</hamkrest.version>
     </properties>
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -92,11 +92,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>31.0.1-jre</version>
-            </dependency>
-            <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-reflect</artifactId>
                 <version>${kotlin.version}</version>
@@ -109,7 +104,7 @@
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
-                <version>2.8.6</version>
+                <version>2.9.0</version>
             </dependency>
             <dependency>
                 <groupId>com.natpryce</groupId>

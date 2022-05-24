@@ -39,7 +39,6 @@ nytta prova http project is compiled against JDK8+ and has the following require
   - okhttp3
   - gson
   - kotson
-  - guava
   - slf4j
 - hamkrest
 

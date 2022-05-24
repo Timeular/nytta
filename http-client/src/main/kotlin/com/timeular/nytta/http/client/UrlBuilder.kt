@@ -1,10 +1,6 @@
 package com.timeular.nytta.http.client
 
-import com.google.common.base.Joiner
-import com.google.common.base.Preconditions.checkArgument
-import com.google.common.base.Strings.isNullOrEmpty
 import java.net.URLEncoder
-import java.util.*
 
 /**
  * a builder which helps to build correct urls with url-encoded parameters
@@ -25,8 +21,14 @@ class UrlBuilder private constructor() {
     }
 
     fun addUrlParameter(key: String, value: String): UrlBuilder {
-        checkArgument(!isNullOrEmpty(key), "The key is not allowed to be empty")
-        checkArgument(!isNullOrEmpty(value), "The value is not allowed to be empty")
+        if (key.isNullOrEmpty()) {
+            throw IllegalArgumentException("The key is not allowed to be empty")
+        }
+
+        if (value.isNullOrEmpty()) {
+            throw IllegalArgumentException("The value is not allowed to be empty")
+        }
+
         urlParameter[key] = value
         return this
     }
@@ -39,11 +41,10 @@ class UrlBuilder private constructor() {
         }
 
         return if (urlParameter.isNotEmpty()) {
-            val encodedParams = urlParameter.mapValues { URLEncoder.encode(it.value, Charsets.UTF_8.name()) }
-
-            val parameters = Joiner.on("&")
-                    .withKeyValueSeparator("=")
-                    .join(encodedParams)
+            val parameters = urlParameter.toList().joinToString("&") { (key, value) ->
+                val encodedValue = URLEncoder.encode(value, Charsets.UTF_8.name())
+                "$key=$encodedValue"
+            }
 
             return "$resultUrl?$parameters"
         } else {

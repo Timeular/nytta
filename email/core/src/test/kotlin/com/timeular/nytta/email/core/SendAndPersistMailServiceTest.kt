@@ -135,9 +135,9 @@ open class MockMailGunMailService(
 ) : MailgunMailService(
         mailTemplateContentBuilder = mock(),
         mailServiceHelper = mock(),
-        apiKey = "",
-        baseUrl = "",
-        domain = ""
+        apiKey = "A Key",
+        baseUrl = "invalid url",
+        domain = "domain"
 ) {
     override fun sendMail(mailConfig: MailConfig): Boolean = returnValue
 

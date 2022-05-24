@@ -1,6 +1,5 @@
 package com.timeular.nytta.email.core.db
 
-import com.google.common.base.Joiner
 import com.timeular.nytta.email.core.Attachment
 import com.timeular.nytta.email.core.MailConfig
 import java.sql.Connection
@@ -14,8 +13,7 @@ const val MAIL_STORAGE_NAME = "mail_storage"
 const val MAIL_STORAGE_ATTACHMENT_NAME = "mail_storage_attachment"
 
 class InsertMailPreparedStatementCreator(
-        private val joiner: Joiner,
-        private val mailConfig: MailConfig
+    private val mailConfig: MailConfig
 ) {
 
     companion object {
@@ -29,9 +27,9 @@ class InsertMailPreparedStatementCreator(
 
         stmt.setString(1, mailConfig.from.toString())
         stmt.setString(2, mailConfig.subject)
-        stmt.setString(3, joiner.join(mailConfig.to.map { it.toString() }))
-        stmt.setString(4, joiner.join(mailConfig.cc.map { it.toString() }))
-        stmt.setString(5, joiner.join(mailConfig.bcc.map { it.toString() }))
+        stmt.setString(3, mailConfig.to.joinToString(",") { it.toString() })
+        stmt.setString(4, mailConfig.cc.joinToString(",") { it.toString() })
+        stmt.setString(5, mailConfig.bcc.joinToString(",") { it.toString() })
         stmt.setString(6, mailConfig.text)
         stmt.setString(7, mailConfig.html)
         stmt.setDate(8, mailConfig.deliveryTime?.toSqlDate())
@@ -41,11 +39,11 @@ class InsertMailPreparedStatementCreator(
     }
 
     private fun ZonedDateTime.toSqlDate(): Date =
-            Date(this.withZoneSameInstant(ZoneOffset.UTC).toInstant().toEpochMilli())
+        Date(this.withZoneSameInstant(ZoneOffset.UTC).toInstant().toEpochMilli())
 }
 
 class MailAttachmentParameterizedPreparedStatementSetter(
-        private val mailId: Long
+    private val mailId: Long
 ) {
 
     fun setValues(ps: PreparedStatement, attachment: Attachment) {

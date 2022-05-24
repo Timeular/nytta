@@ -38,7 +38,6 @@ nytta http client is compiled against JDK8+ and has the following required depen
 - okhttp3
 - gson
 - kotson
-- guava
 - slf4j
 
 Additionally you can put `spring-retry` on the class path to use the `RetryableHttpClient`.

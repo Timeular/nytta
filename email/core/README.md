@@ -38,7 +38,6 @@ nytta email core is compiled against JDK8+ and has the following required depend
 - thymeleaf
 - okhttp3
 - gson
-- guava
 - slf4j
 
 ## Components

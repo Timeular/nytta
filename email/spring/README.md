@@ -39,7 +39,6 @@ nytta spring-email is compiled against JDK8+ and has the following required depe
   - thymeleaf
   - okhttp3
   - gson
-  - guava
   - slf4j
 - spring-context
 - thymeleaf-spring5
