@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.timeular.nytta.email</groupId>
         <artifactId>email-parent</artifactId>
-        <version>5.3.1-SNAPSHOT</version>
+        <version>5.3.1</version>
     </parent>
 
     <groupId>com.timeular.nytta.email</groupId>
     <artifactId>spring</artifactId>
-    <version>5.3.1-SNAPSHOT</version>
+    <version>5.3.1</version>
 
     <name>Timeular Nytta Spring Email</name>
     <description>This module provides spring configuration for the email package</description>
