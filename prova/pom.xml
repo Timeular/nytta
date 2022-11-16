@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.timeular.nytta</groupId>
         <artifactId>parent</artifactId>
-        <version>5.4.0</version>
+        <version>5.4.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.timeular.nytta.prova</groupId>
     <artifactId>prova-parent</artifactId>
-    <version>5.4.0</version>
+    <version>5.4.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Timeular Nytta Prova</name>

@@ -5,11 +5,11 @@
     <parent>
         <groupId>com.timeular.nytta.prova</groupId>
         <artifactId>prova-parent</artifactId>
-        <version>5.4.0</version>
+        <version>5.4.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>http</artifactId>
-    <version>5.4.0</version>
+    <version>5.4.1-SNAPSHOT</version>
 
     <name>Timeular Nytta Prova Http</name>
     <description>This module provides testing helpers for hamkrest around the http client</description>
