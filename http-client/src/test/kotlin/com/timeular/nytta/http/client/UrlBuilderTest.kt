@@ -9,8 +9,8 @@ class UrlBuilderTest {
     @Test
     fun testBuildUrlUrlOnly() {
         val result = UrlBuilder.newBuilder()
-                .url("http://n1url/")
-                .build()
+            .url("http://n1url/")
+            .build()
 
         assertThat(result, equalTo("http://n1url"))
     }
@@ -18,11 +18,11 @@ class UrlBuilderTest {
     @Test
     fun testBuildUrlParameterOnly() {
         val result = UrlBuilder.newBuilder()
-                .addUrlParameter("key1", "value1")
-                .addUrlParameter("key2", "value2")
-                .addUrlParameter("key3", "value 3")
-                .addUrlParameter("key4", "value+4")
-                .build()
+            .addUrlParameter("key1", "value1")
+            .addUrlParameter("key2", "value2")
+            .addUrlParameter("key3", "value 3")
+            .addUrlParameter("key4", "value+4")
+            .build()
 
         assertThat(result, equalTo("?key1=value1&key2=value2&key3=value+3&key4=value%2B4"))
     }
@@ -30,13 +30,55 @@ class UrlBuilderTest {
     @Test
     fun testBuildUrl() {
         val result = UrlBuilder.newBuilder()
-                .url("http://www.someurl.com/")
-                .addUrlParameter("key1", "value1")
-                .addUrlParameter("key2", "value2")
-                .addUrlParameter("key3", "value 3")
-                .addUrlParameter("key4", "value+4")
-                .build()
+            .url("http://www.someurl.com/")
+            .addUrlParameter("key1", "value1")
+            .addUrlParameter("key2", "value2")
+            .addUrlParameter("key3", "value 3")
+            .addUrlParameter("key4", "value+4")
+            .build()
 
         assertThat(result, equalTo("http://www.someurl.com?key1=value1&key2=value2&key3=value+3&key4=value%2B4"))
+    }
+
+    @Test
+    fun testBuildUrlWithExistingParameters() {
+        val result = UrlBuilder.newBuilder()
+            .url("http://www.someurl.com?key0=value0")
+            .addUrlParameter("key1", "value1")
+            .build()
+
+        assertThat(result, equalTo("http://www.someurl.com?key0=value0&key1=value1"))
+    }
+
+    @Test
+    fun testBuilderUrl() {
+        val result = UrlBuilder.newBuilder()
+            .url("http://www.someurl.com?key1=value1&key2=value2&key3=value+3&key4=value%2B4#best-thing")
+            .addUrlParameter("key4", "value 4")
+            .addUrlParameter("key5", "value+5")
+            .build()
+
+        assertThat(
+            result,
+            equalTo("http://www.someurl.com?key1=value1&key2=value2&key3=value+3&key4=value%2B4&key4=value+4&key5=value%2B5#best-thing")
+        )
+    }
+
+    @Test
+    fun testOmitDuplicates() {
+        val builder = UrlBuilder.newBuilder()
+            .url("http://www.someurl.com?key1=value1")
+            .addUrlParameter("key1", "value2")
+            .addUrlParameter("key1", "value3")
+
+        assertThat(
+            builder.build(),
+            equalTo("http://www.someurl.com?key1=value1&key1=value2&key1=value3")
+        )
+
+        assertThat(
+            builder.omitDuplicatedParameters(true).build(),
+            equalTo("http://www.someurl.com?key1=value1")
+        )
     }
 }
