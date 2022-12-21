@@ -38,6 +38,12 @@
             <artifactId>gson</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.timeular.nytta.prova</groupId>
+            <artifactId>hamkrest</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
             <scope>test</scope>

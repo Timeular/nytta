@@ -16,7 +16,34 @@ class UrlBuilder private constructor() {
     private var omitDuplicatedParameters = false
 
     companion object {
+        @JvmStatic
         fun newBuilder(): UrlBuilder = UrlBuilder()
+
+        @JvmStatic
+        fun parseQueryParams(uri: String): Map<String, List<String>> =
+            parseQueryParams(URI.create(uri))
+
+        @JvmStatic
+        fun parseQueryParams(uri: URI): Map<String, List<String>> =
+            uri.rawQuery?.let { rawQuery ->
+                if (rawQuery.isNotBlank()) {
+                    val map = LinkedHashMap<String, List<String>>()
+                    rawQuery.split("&").forEach { param ->
+                        val split = param.split("=", limit = 2)
+                        if (split.size < 2) {
+                            throw IllegalArgumentException("Invalid query parameter found: $param")
+                        }
+                        val key = split[0]
+                        val list = map[key]?.toMutableList() ?: mutableListOf()
+                        list.add(URLDecoder.decode(split[1], Charsets.UTF_8.name()))
+                        map[key] = list
+                    }
+                    map
+                } else {
+                    emptyMap()
+                }
+            } ?: emptyMap()
+
     }
 
     fun url(url: String): UrlBuilder {
@@ -33,19 +60,9 @@ class UrlBuilder private constructor() {
 
         this.fragment = uri.rawFragment
 
-        uri.rawQuery?.run {
-            if (this.isNotBlank()) {
-                this.split("&").forEach { param ->
-                    val split = param.split("=", limit = 2)
-                    if (split.size < 2) {
-                        throw IllegalArgumentException("Invalid query parameter found: $param")
-                    }
-                    val key = split[0]
-                    val list = queryParameter[key]?.toMutableList() ?: mutableListOf()
-                    list.add(URLDecoder.decode(split[1], Charsets.UTF_8.name()))
-                    queryParameter[key] = list
-                }
-            }
+        val params = parseQueryParams(uri)
+        if (params.isNotEmpty()) {
+            queryParameter.putAll(params)
         }
 
         return this
