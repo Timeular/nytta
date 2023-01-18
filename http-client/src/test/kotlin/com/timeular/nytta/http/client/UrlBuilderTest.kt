@@ -67,6 +67,21 @@ class UrlBuilderTest {
     }
 
     @Test
+    fun testBuilderUrlDisabledRfcCompliance() {
+        val result = UrlBuilder.newBuilder()
+            .url("http://www.someurl.com?key1=value1&key2=value2&key3=value+3&key4=value%2B4#best-thing")
+            .addUrlParameter("key4", "value 4")
+            .addUrlParameter("key5", "value+5")
+            .disableRfcCompliance()
+            .build()
+
+        assertThat(
+            result,
+            equalTo("http://www.someurl.com#best-thing?key1=value1&key2=value2&key3=value+3&key4=value%2B4&key4=value+4&key5=value%2B5")
+        )
+    }
+
+    @Test
     fun testOmitDuplicates() {
         val builder = UrlBuilder.newBuilder()
             .url("http://www.someurl.com?key1=value1")

@@ -14,6 +14,7 @@ class UrlBuilder private constructor() {
     private val queryParameter = LinkedHashMap<String, List<String>>()
     private var urlParameter = LinkedHashMap<String, List<String>>()
     private var omitDuplicatedParameters = false
+    private var rfcCompliant = true
 
     companion object {
         @JvmStatic
@@ -88,6 +89,11 @@ class UrlBuilder private constructor() {
         return this
     }
 
+    fun disableRfcCompliance(): UrlBuilder {
+        rfcCompliant = false
+        return this
+    }
+
     fun build(): String {
         var resultUrl = url
 
@@ -110,7 +116,11 @@ class UrlBuilder private constructor() {
             "?$q${urlParams?.let { "&$it" } ?: ""}"
         } ?: urlParams?.let { "?$it" } ?: ""
 
-        return "$resultUrl$params${fragment?.let { "#$it" } ?: ""}"
+        return if (rfcCompliant) {
+            "$resultUrl$params${fragment?.let { "#$it" } ?: ""}"
+        } else {
+            "$resultUrl${fragment?.let { "#$it" } ?: ""}$params"
+        }
     }
 
     private fun createQueryParams(params: Map<String, List<String>>): String? =
