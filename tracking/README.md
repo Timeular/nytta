@@ -51,7 +51,7 @@ instance directly or assign it to a context where you have static access everywh
 
 ```java
     TrackerContext.initialize(
-            new MixpanelTracker(new OkHttpClient(), "your-token"),
+            new MixpanelTracker(new OkHttpClient(), "your-mxpnl-project-token"),
             true
     );
 ```
@@ -93,7 +93,7 @@ to the `TrackerContext`.
 ```yaml
 tracking:
   enabled: ${TRACKING_ENABLED:false}
-  token: ${MIX_PANEL_TOKEN:your-token}
+  token: ${MIXPANEL_TOKEN:your-mxpnl-project-token}
 ```
 
 ### Tracking & updating a profile
