@@ -2,6 +2,7 @@ package com.timeular.nytta.email.core
 
 import org.slf4j.LoggerFactory
 import java.time.ZonedDateTime
+import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -31,7 +32,8 @@ class AsyncMailService @JvmOverloads constructor(
             mailContext: Map<String, Any>,
             receiver: Set<MailContact>,
             deliveryTime: ZonedDateTime?,
-            inlineAttachments: List<Attachment>
+            inlineAttachments: List<Attachment>,
+            locale: Locale
     ): Boolean {
         executor.run {
             try {
@@ -40,7 +42,8 @@ class AsyncMailService @JvmOverloads constructor(
                         mailContext = mailContext,
                         receiver = receiver,
                         deliveryTime = deliveryTime,
-                        inlineAttachments = inlineAttachments
+                        inlineAttachments = inlineAttachments,
+                        locale = locale
                 )
             } catch (ex: Throwable) {
                 logger.error("Unable to send email: `{}`", mailTemplate.htmlTemplate, ex)

@@ -1,6 +1,7 @@
 package com.timeular.nytta.email.core
 
 import java.time.ZonedDateTime
+import java.util.*
 
 interface MailService {
 
@@ -9,38 +10,44 @@ interface MailService {
     fun sendMail(
             mailTemplate: MailTemplate,
             mailContext: Map<String, Any>,
-            receiver: Set<MailContact>
+            receiver: Set<MailContact>,
+            locale: Locale = Locale.ENGLISH
     ): Boolean = sendMail(
             mailTemplate = mailTemplate,
             mailContext = mailContext,
             receiver = receiver,
-            deliveryTime = null
+            deliveryTime = null,
+            locale = locale
     )
 
     fun sendMail(
             mailTemplate: MailTemplate,
             mailContext: Map<String, Any>,
             receiver: Set<MailContact>,
-            deliveryTime: ZonedDateTime
+            deliveryTime: ZonedDateTime,
+            locale: Locale = Locale.ENGLISH
     ): Boolean = sendMail(
             mailTemplate = mailTemplate,
             mailContext = mailContext,
             receiver = receiver,
             deliveryTime = deliveryTime,
-            inlineAttachments = emptyList()
+            inlineAttachments = emptyList(),
+            locale = locale
     )
 
     fun sendMail(
             mailTemplate: MailTemplate,
             mailContext: Map<String, Any>,
             receiver: Set<MailContact>,
-            inlineAttachments: List<Attachment> = emptyList()
+            inlineAttachments: List<Attachment> = emptyList(),
+            locale: Locale = Locale.ENGLISH
     ): Boolean = sendMail(
             mailTemplate = mailTemplate,
             mailContext = mailContext,
             receiver = receiver,
             inlineAttachments = inlineAttachments,
-            deliveryTime = null
+            deliveryTime = null,
+            locale = locale
     )
 
     fun sendMail(
@@ -48,6 +55,7 @@ interface MailService {
             mailContext: Map<String, Any>,
             receiver: Set<MailContact>,
             deliveryTime: ZonedDateTime? = null,
-            inlineAttachments: List<Attachment> = emptyList()
+            inlineAttachments: List<Attachment> = emptyList(),
+            locale: Locale = Locale.ENGLISH
     ): Boolean
 }

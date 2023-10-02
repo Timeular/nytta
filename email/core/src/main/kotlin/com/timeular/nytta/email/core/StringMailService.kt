@@ -2,7 +2,6 @@ package com.timeular.nytta.email.core
 
 import java.time.ZonedDateTime
 import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * this mail service is only for generating mails and saving the outcome in an thread safe variable
@@ -19,7 +18,8 @@ class StringMailService(
             mailContext: Map<String, Any>,
             receiver: Set<MailContact>,
             deliveryTime: ZonedDateTime?,
-            inlineAttachments: List<Attachment>
+            inlineAttachments: List<Attachment>,
+            locale: Locale
     ): Boolean {
 
         val enhancedMailContext = HashMap<String, Any>(mailContext)
@@ -32,7 +32,7 @@ class StringMailService(
             enhancedMailContext[it.name.replace(".", "")] = createDataUrl(it)
         }
 
-        return super.sendMail(mailTemplate, enhancedMailContext, receiver, deliveryTime, inlineAttachments)
+        return super.sendMail(mailTemplate, enhancedMailContext, receiver, deliveryTime, inlineAttachments, locale)
     }
 
     override fun sendMail(mailConfig: MailConfig): Boolean {

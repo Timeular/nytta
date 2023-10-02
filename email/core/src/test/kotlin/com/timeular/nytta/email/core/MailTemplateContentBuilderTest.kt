@@ -13,18 +13,9 @@ internal class MailTemplateContentBuilderTest {
             mailTemplateEngine = templateEngine()
     )
 
-    @Test
-    fun testBuild() {
-        val ctx = mapOf<String, Any>("user" to createWeeklyUser())
-
-        assertThat(
-                mailTemplateContentBuilder.build("test_template.txt", ctx),
-                equalTo("Wow a text template for Johann!!")
-        )
-
-        assertThat(
-                mailTemplateContentBuilder.build("test_template.html", ctx),
-                equalTo("""<!DOCTYPE html>
+    companion object {
+        const val EN_TXT_CONTENT = "Wow a text template for Johann!!"
+        const val EN_HTML_CONTENT = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,12 +26,26 @@ internal class MailTemplateContentBuilderTest {
 <h1>Hi there <span>Johann</span></h1>
 
 </body>
-</html>""")
-        )
+</html>"""
+
+        fun createWeeklyUser(): User =
+                User(
+                        firstName = "Johann"
+                )
     }
 
-    private fun createWeeklyUser() =
-            User(
-                    firstName = "Johann"
-            )
+    @Test
+    fun testBuild() {
+        val ctx = mapOf<String, Any>("user" to createWeeklyUser())
+
+        assertThat(
+                mailTemplateContentBuilder.build("test_template.txt", ctx),
+                equalTo(EN_TXT_CONTENT)
+        )
+
+        assertThat(
+                mailTemplateContentBuilder.build("test_template.html", ctx),
+                equalTo(EN_HTML_CONTENT)
+        )
+    }
 }

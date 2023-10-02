@@ -1,6 +1,7 @@
 package com.timeular.nytta.email.core
 
 import java.time.ZonedDateTime
+import java.util.Locale
 
 data class MailContact @JvmOverloads constructor(
         val email: String,
@@ -36,6 +37,7 @@ class MailConfig private constructor(builder: Builder) {
     val deliveryTime: ZonedDateTime?
     val tag: String?
     val inlineAttachments: List<Attachment>
+    val locale: Locale?
 
     init {
         from = builder.from as MailContact
@@ -48,6 +50,7 @@ class MailConfig private constructor(builder: Builder) {
         deliveryTime = builder.deliveryTime
         tag = builder.tag
         inlineAttachments = builder.inlineAttachments
+        locale = builder.locale
     }
 
     fun isNoEmailProvided(): Boolean =
@@ -69,6 +72,7 @@ class MailConfig private constructor(builder: Builder) {
                 newBuilder.deliveryTime = builder.deliveryTime
                 newBuilder.tag = builder.tag
                 newBuilder.inlineAttachments += builder.inlineAttachments
+                newBuilder.locale = builder.locale
 
                 return newBuilder
             }
@@ -86,6 +90,7 @@ class MailConfig private constructor(builder: Builder) {
                 builder.deliveryTime = mailCfg.deliveryTime
                 builder.tag = mailCfg.tag
                 builder.inlineAttachments += mailCfg.inlineAttachments
+                builder.locale = mailCfg.locale
 
                 return builder
             }
@@ -104,6 +109,7 @@ class MailConfig private constructor(builder: Builder) {
         internal var inlineAttachments: List<Attachment> = ArrayList()
         internal var deliveryTime: ZonedDateTime? = null
         internal var tag: String? = null
+        internal var locale: Locale? = null
 
         fun from(mailContact: MailContact): Builder {
             this.from = mailContact
@@ -187,6 +193,11 @@ class MailConfig private constructor(builder: Builder) {
 
         fun addInlineAttachment(attachment: Attachment): Builder {
             this.inlineAttachments += attachment
+            return this
+        }
+
+        fun locale(l: Locale): Builder {
+            this.locale = l
             return this
         }
 
