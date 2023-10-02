@@ -5,6 +5,9 @@ import com.natpryce.hamkrest.equalTo
 import io.mockk.mockk
 import org.junit.jupiter.api.Test
 import java.time.ZonedDateTime
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.collections.HashSet
 
 internal class SendAndPersistMailServiceTest {
 
@@ -134,7 +137,8 @@ open class MockDbPersistentMailService(
         mailContext: Map<String, Any>,
         receiver: Set<MailContact>,
         deliveryTime: ZonedDateTime?,
-        inlineAttachments: List<Attachment>
+        inlineAttachments: List<Attachment>,
+        locale: Locale
     ): Boolean = returnValue
 }
 
@@ -154,6 +158,7 @@ open class MockMailGunMailService(
         mailContext: Map<String, Any>,
         receiver: Set<MailContact>,
         deliveryTime: ZonedDateTime?,
-        inlineAttachments: List<Attachment>
+        inlineAttachments: List<Attachment>,
+        locale: Locale
     ): Boolean = returnValue
 }

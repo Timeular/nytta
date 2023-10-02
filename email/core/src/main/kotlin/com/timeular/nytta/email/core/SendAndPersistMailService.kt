@@ -1,6 +1,7 @@
 package com.timeular.nytta.email.core
 
 import java.time.ZonedDateTime
+import java.util.*
 
 open class SendAndPersistMailService(
         private val dbPersistentMailService: DbPersistentMailService,
@@ -21,11 +22,24 @@ open class SendAndPersistMailService(
         return result
     }
 
-    override fun sendMail(mailTemplate: MailTemplate, mailContext: Map<String, Any>, receiver: Set<MailContact>,
-                          deliveryTime: ZonedDateTime?, inlineAttachments: List<Attachment>): Boolean {
+    override fun sendMail(
+            mailTemplate: MailTemplate,
+            mailContext: Map<String, Any>,
+            receiver: Set<MailContact>,
+            deliveryTime: ZonedDateTime?,
+            inlineAttachments: List<Attachment>,
+            locale: Locale
+    ): Boolean {
         var result = false
         if (sendMails) {
-            result = mailgunMailService.sendMail(mailTemplate, mailContext, receiver, deliveryTime, inlineAttachments)
+            result = mailgunMailService.sendMail(
+                    mailTemplate,
+                    mailContext,
+                    receiver,
+                    deliveryTime,
+                    inlineAttachments,
+                    locale
+            )
         }
 
         if (persistMails) {
