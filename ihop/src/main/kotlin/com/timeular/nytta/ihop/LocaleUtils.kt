@@ -12,7 +12,13 @@ fun parseLocale(locale: String?, default: Locale? = null): Locale? =
             try {
                 LocaleUtils.toLocale(locale.trim())
             } catch (ex: IllegalArgumentException) {
-                default
+                val loc = Locale.forLanguageTag(locale.trim())
+                if (Locale.getAvailableLocales().any { it == loc && it.toLanguageTag() != "und" }) {
+                    loc
+                } else {
+                    default
+                }
+
             }
         }
     } ?: default
