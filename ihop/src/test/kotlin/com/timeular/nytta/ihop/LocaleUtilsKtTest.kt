@@ -13,6 +13,7 @@ class LocaleUtilsKtTest {
         assertThat(parseLocale("invalid"), absent())
         assertThat(parseLocale(" en-GB  "), equalTo(Locale.UK))
         assertThat(parseLocale("en_GB"), equalTo(Locale.UK))
+        assertThat(parseLocale("en-us"), equalTo(Locale.US))
         assertThat(parseLocale(null), absent())
 
         assertThat(parseLocale(null, Locale.ENGLISH), equalTo(Locale.ENGLISH))
