@@ -4,10 +4,10 @@ import java.time.ZonedDateTime
 import java.util.*
 
 open class SendAndPersistMailService(
-        private val dbPersistentMailService: DbPersistentMailService,
-        private val mailgunMailService: MailgunMailService,
-        private val persistMails: Boolean,
-        private val sendMails: Boolean
+    private val dbPersistentMailService: DbPersistentMailService,
+    private val mailgunMailService: MailgunMailService,
+    private val persistMails: Boolean,
+    private val sendMails: Boolean
 ) : MailService {
     override fun sendMail(mailConfig: MailConfig): Boolean {
         var result = false
@@ -23,27 +23,34 @@ open class SendAndPersistMailService(
     }
 
     override fun sendMail(
-            mailTemplate: MailTemplate,
-            mailContext: Map<String, Any>,
-            receiver: Set<MailContact>,
-            deliveryTime: ZonedDateTime?,
-            inlineAttachments: List<Attachment>,
-            locale: Locale
+        mailTemplate: MailTemplate,
+        mailContext: Map<String, Any>,
+        receiver: Set<MailContact>,
+        deliveryTime: ZonedDateTime?,
+        inlineAttachments: List<Attachment>,
+        locale: Locale
     ): Boolean {
         var result = false
         if (sendMails) {
             result = mailgunMailService.sendMail(
-                    mailTemplate,
-                    mailContext,
-                    receiver,
-                    deliveryTime,
-                    inlineAttachments,
-                    locale
+                mailTemplate = mailTemplate,
+                mailContext = mailContext,
+                receiver = receiver,
+                deliveryTime = deliveryTime,
+                inlineAttachments = inlineAttachments,
+                locale = locale
             )
         }
 
         if (persistMails) {
-            result = result.xor(sendMails).not() && dbPersistentMailService.sendMail(mailTemplate, mailContext, receiver, deliveryTime)
+            result = result.xor(sendMails).not() && dbPersistentMailService.sendMail(
+                mailTemplate = mailTemplate,
+                mailContext = mailContext,
+                receiver = receiver,
+                deliveryTime = deliveryTime,
+                inlineAttachments = inlineAttachments,
+                locale = locale
+            )
         }
 
         return result
