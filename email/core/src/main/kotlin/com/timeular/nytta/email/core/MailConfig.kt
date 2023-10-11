@@ -1,23 +1,25 @@
 package com.timeular.nytta.email.core
 
 import java.time.ZonedDateTime
-import java.util.Locale
+import java.util.*
 
 data class MailContact @JvmOverloads constructor(
-        val email: String,
-        val name: String? = null
+    val email: String,
+    val name: String? = null
 ) {
     override fun toString(): String =
-            name?.let { "$name <$email>" } ?: email
+        name?.let { "$name <$email>" } ?: email
 }
 
 data class Attachment(
-        val name: String,
-        val mimeType: String,
-        val resource: ByteArray
+    val name: String,
+    val mimeType: String,
+    val resource: ByteArray
 )
 
-class MailConfig private constructor(builder: Builder) {
+private val DEFAULT_LOCALE: Locale = Locale("default_string")
+
+class MailConfig private constructor(builder: Builder, locale: Locale? = null) {
 
     companion object {
         @JvmStatic
@@ -37,11 +39,10 @@ class MailConfig private constructor(builder: Builder) {
     val deliveryTime: ZonedDateTime?
     val tag: String?
     val inlineAttachments: List<Attachment>
-    val locale: Locale?
 
     init {
         from = builder.from as MailContact
-        subject = builder.subject
+        subject = resolveSubject(builder.subjects, locale)
         to = ArrayList(builder.to)
         cc = ArrayList(builder.cc)
         bcc = ArrayList(builder.bcc)
@@ -50,11 +51,10 @@ class MailConfig private constructor(builder: Builder) {
         deliveryTime = builder.deliveryTime
         tag = builder.tag
         inlineAttachments = builder.inlineAttachments
-        locale = builder.locale
     }
 
     fun isNoEmailProvided(): Boolean =
-            to.isEmpty() && cc.isEmpty() && bcc.isEmpty()
+        to.isEmpty() && cc.isEmpty() && bcc.isEmpty()
 
     class Builder {
 
@@ -63,7 +63,7 @@ class MailConfig private constructor(builder: Builder) {
             fun from(builder: Builder): Builder {
                 val newBuilder = Builder()
                 newBuilder.from = builder.from
-                newBuilder.subject = builder.subject
+                newBuilder.subjects += builder.subjects
                 newBuilder.to += builder.to
                 newBuilder.cc += builder.cc
                 newBuilder.bcc += builder.bcc
@@ -72,7 +72,6 @@ class MailConfig private constructor(builder: Builder) {
                 newBuilder.deliveryTime = builder.deliveryTime
                 newBuilder.tag = builder.tag
                 newBuilder.inlineAttachments += builder.inlineAttachments
-                newBuilder.locale = builder.locale
 
                 return newBuilder
             }
@@ -81,7 +80,7 @@ class MailConfig private constructor(builder: Builder) {
             fun from(mailCfg: MailConfig): Builder {
                 val builder = Builder()
                 builder.from = mailCfg.from
-                builder.subject = mailCfg.subject
+                builder.subjects[DEFAULT_LOCALE] = mailCfg.subject
                 builder.to += mailCfg.to
                 builder.cc += mailCfg.cc
                 builder.bcc += mailCfg.bcc
@@ -90,7 +89,6 @@ class MailConfig private constructor(builder: Builder) {
                 builder.deliveryTime = mailCfg.deliveryTime
                 builder.tag = mailCfg.tag
                 builder.inlineAttachments += mailCfg.inlineAttachments
-                builder.locale = mailCfg.locale
 
                 return builder
             }
@@ -100,7 +98,7 @@ class MailConfig private constructor(builder: Builder) {
         }
 
         internal var from: MailContact? = null
-        internal var subject: String = ""
+        internal var subjects: MutableMap<Locale, String> = mutableMapOf(DEFAULT_LOCALE to "")
         internal var to: List<MailContact> = ArrayList()
         internal var cc: List<MailContact> = ArrayList()
         internal var bcc: List<MailContact> = ArrayList()
@@ -109,7 +107,6 @@ class MailConfig private constructor(builder: Builder) {
         internal var inlineAttachments: List<Attachment> = ArrayList()
         internal var deliveryTime: ZonedDateTime? = null
         internal var tag: String? = null
-        internal var locale: Locale? = null
 
         fun from(mailContact: MailContact): Builder {
             this.from = mailContact
@@ -121,8 +118,10 @@ class MailConfig private constructor(builder: Builder) {
             return this
         }
 
-        fun subject(subject: String): Builder {
-            this.subject = subject
+        @JvmOverloads
+        fun subject(subject: String, locale: Locale? = null): Builder {
+            val key = locale ?: DEFAULT_LOCALE
+            this.subjects[key] = subject
             return this
         }
 
@@ -196,32 +195,30 @@ class MailConfig private constructor(builder: Builder) {
             return this
         }
 
-        fun locale(l: Locale): Builder {
-            this.locale = l
-            return this
-        }
-
         fun addInlineAttachment(
-                name: String,
-                mimeType: String,
-                resource: ByteArray
+            name: String,
+            mimeType: String,
+            resource: ByteArray
         ): Builder {
-            this.addInlineAttachment(Attachment(
+            this.addInlineAttachment(
+                Attachment(
                     mimeType = mimeType,
                     name = name,
                     resource = resource
-            ))
+                )
+            )
             return this
         }
 
         fun isNoEmailProvided(): Boolean =
-                to.isEmpty() && cc.isEmpty() && bcc.isEmpty()
+            to.isEmpty() && cc.isEmpty() && bcc.isEmpty()
 
-        fun build(): MailConfig {
+        @JvmOverloads
+        fun build(locale: Locale? = null): MailConfig {
             if (from == null)
                 throw MailConfigurationException("The From field is missing")
 
-            if (subject.isBlank())
+            if (subjects.isEmpty() || (subjects.size == 1 && subjects[DEFAULT_LOCALE]?.isBlank() == true))
                 throw MailConfigurationException("Subject is not allowed to be blank")
 
             if (isNoEmailProvided())
@@ -230,13 +227,42 @@ class MailConfig private constructor(builder: Builder) {
             if (text.isBlank() && html.isBlank())
                 throw MailConfigurationException("Sending an email with an empty body is not supported at the moment")
 
-            return MailConfig(this)
+            return MailConfig(this, locale)
         }
     }
+
+    private fun resolveSubject(subjects: Map<Locale, String>, locale: Locale?): String =
+        locale?.let {
+            val list = mutableListOf(DEFAULT_LOCALE)
+            val lang = locale.language
+
+            if (lang.isNotBlank()) {
+                list.add(0, Locale(lang))
+            }
+
+            val country = locale.country
+            if (country.isNotBlank()) {
+                list.add(0, Locale(lang, country))
+            }
+
+            val variant = locale.variant
+            if (variant.isNotBlank() && (lang.isNotBlank() || country.isNotBlank())) {
+                list.add(0, Locale(lang, country, variant))
+            }
+
+            list.forEach {
+                val sub = subjects[it]
+                if (sub != null) {
+                    return sub
+                }
+            }
+
+            ""
+        } ?: subjects[DEFAULT_LOCALE] ?: ""
 }
 
 data class MailTemplate @JvmOverloads constructor(
-        val mailConfigBuilder: MailConfig.Builder,
-        val htmlTemplate: String? = null,
-        val txtTemplate: String? = null
+    val mailConfigBuilder: MailConfig.Builder,
+    val htmlTemplate: String? = null,
+    val txtTemplate: String? = null
 )

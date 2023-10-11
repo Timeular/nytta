@@ -6,6 +6,7 @@ import com.natpryce.hamkrest.hasSize
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.util.*
 
 internal class MailConfigTest {
 
@@ -125,5 +126,40 @@ internal class MailConfigTest {
 
         assertThat(cfg.bcc, hasSize(equalTo(1)))
         assertThat(cfg.bcc[0].toString(), equalTo("bcc@test.com"))
+    }
+
+    @Test
+    fun testBuilderWithSubject() {
+        builder.from("support@timeular.com", "Timeular Support Team")
+            .subject("Default Message")
+            .subject("English Message", Locale.ENGLISH)
+            .subject("US Message", Locale.US)
+            .subject("German Message", Locale.GERMAN)
+            .addTo("first@test.com")
+            .text("If everything seems to be going well, you have obviously overlooked something.")
+
+        with(builder.build()) {
+            assertThat(subject, equalTo("Default Message"))
+        }
+
+        with(builder.build(Locale.ENGLISH)) {
+            assertThat(subject, equalTo("English Message"))
+        }
+
+        with(builder.build(Locale.UK)) {
+            assertThat(subject, equalTo("English Message"))
+        }
+
+        with(builder.build(Locale.US)) {
+            assertThat(subject, equalTo("US Message"))
+        }
+
+        with(builder.build(Locale.GERMAN)) {
+            assertThat(subject, equalTo("German Message"))
+        }
+
+        with(builder.build(Locale.FRANCE)) {
+            assertThat(subject, equalTo("Default Message"))
+        }
     }
 }
