@@ -88,7 +88,6 @@ class StringMailServiceTest {
         mailService.mailConfig.remove()
         assertThat(lastMail.html, equalTo(expectedHtml))
         assertThat(lastMail.text, equalTo(expectedTxt))
-        assertThat(lastMail.locale, equalTo(locale))
     }
 
 }

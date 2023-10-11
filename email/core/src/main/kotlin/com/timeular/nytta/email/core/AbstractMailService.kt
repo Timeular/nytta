@@ -50,9 +50,8 @@ abstract class AbstractMailService(
         inlineAttachments.forEach {
             mailCfgBuilder.addInlineAttachment(it)
         }
-        mailCfgBuilder.locale = locale
 
-        return sendMail(mailCfgBuilder.build())
+        return sendMail(mailCfgBuilder.build(locale))
     }
 
     fun resolveContent(baseName: String, ctx: Map<String, Any>, locale: Locale): String? {
