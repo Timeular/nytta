@@ -36,53 +36,53 @@ class StringMailServiceTest {
     }
 
     private val mailService = StringMailService(
-            mailTemplateContentBuilder = MailTemplateContentBuilder(
-                    templateEngine()
-            ),
-            mailServiceHelper = MailServiceHelper()
+        mailTemplateContentBuilder = MailTemplateContentBuilder(
+            templateEngine()
+        ),
+        mailServiceHelper = MailServiceHelper()
     )
 
     private val mailTemplate = MailTemplate(
-            mailConfigBuilder = MailConfig.Builder()
-                    .from("hi@example.com", "Hi")
-                    .subject("Hello Test"),
-            htmlTemplate = "test_template.html",
-            txtTemplate = "test_template.txt"
+        mailConfigBuilder = MailConfig.Builder()
+            .from("hi@example.com", "Hi")
+            .subject("Hello Test"),
+        htmlTemplate = "test_template.html",
+        txtTemplate = "test_template.txt"
     )
 
     @Test
     fun testBuildLocalized() {
         sendMail(
-                Locale.ENGLISH,
-                MailTemplateContentBuilderTest.EN_HTML_CONTENT,
-                MailTemplateContentBuilderTest.EN_TXT_CONTENT
+            Locale.ENGLISH,
+            MailTemplateContentBuilderTest.EN_HTML_CONTENT,
+            MailTemplateContentBuilderTest.EN_TXT_CONTENT
         )
 
         sendMail(
-                Locale.GERMAN,
-                DE_HTML_CONTENT,
-                DE_TXT_CONTENT
+            Locale.GERMAN,
+            DE_HTML_CONTENT,
+            DE_TXT_CONTENT
         )
 
         sendMail(
-                Locale.forLanguageTag("de-AT"),
-                DE_AT_HTML_CONTENT,
-                DE_AT_TXT_CONTENT
+            Locale.forLanguageTag("de-AT"),
+            DE_AT_HTML_CONTENT,
+            DE_AT_TXT_CONTENT
         )
 
         sendMail(
-                Locale.FRANCE,
-                MailTemplateContentBuilderTest.EN_HTML_CONTENT,
-                MailTemplateContentBuilderTest.EN_TXT_CONTENT
+            Locale.FRANCE,
+            MailTemplateContentBuilderTest.EN_HTML_CONTENT,
+            MailTemplateContentBuilderTest.EN_TXT_CONTENT
         )
     }
 
     private fun sendMail(locale: Locale, expectedHtml: String, expectedTxt: String) {
         mailService.sendMail(
-                mailTemplate = mailTemplate,
-                mailContext = mapOf("user" to MailTemplateContentBuilderTest.createWeeklyUser()),
-                receiver = setOf(MailContact("some@email.copm")),
-                locale = locale
+            mailTemplate = mailTemplate,
+            mailContext = mapOf("user" to MailTemplateContentBuilderTest.createWeeklyUser()),
+            receiver = setOf(MailContact("some@email.copm")),
+            locale = locale
         )
         val lastMail = mailService.mailConfig.get()
         mailService.mailConfig.remove()
