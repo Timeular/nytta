@@ -5,12 +5,12 @@
     <parent>
         <groupId>com.timeular.nytta</groupId>
         <artifactId>parent</artifactId>
-        <version>5.5.0</version>
+        <version>5.5.1-SNAPSHOT</version>
     </parent>
 
     <groupId>com.timeular.nytta</groupId>
     <artifactId>ihop</artifactId>
-    <version>5.5.0</version>
+    <version>5.5.1-SNAPSHOT</version>
 
     <name>Timeular Nytta ihop</name>
     <description>This is a helper module to provide common helper classes.</description>
