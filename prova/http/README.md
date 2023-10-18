@@ -4,7 +4,7 @@ The Nytta prova http module testing helpers which for hamkrest around the [nytta
 
 ## Latest release
 
-The most recent release is prova-http 5.4.0, released November 16, 2022.
+The most recent release is prova-http 5.5.0, released October 18, 2023.
 
 ### Maven
 
@@ -12,7 +12,7 @@ The most recent release is prova-http 5.4.0, released November 16, 2022.
 <dependency>
   <groupId>com.timeular.nytta.prova</groupId>
   <artifactId>http</artifactId>
-  <version>5.4.0</version>
+  <version>5.5.0</version>
 </dependency>
 ```
 
@@ -20,10 +20,10 @@ The most recent release is prova-http 5.4.0, released November 16, 2022.
 
 ```gradle
 // Gradle Groovy DSL
-compile 'com.timeular.nytta.prova:http:5.4.0'
+compile 'com.timeular.nytta.prova:http:5.5.0'
 
 // Gradle Kotlin DSL
-compile(group = "com.timeular.nytta.prova", name = "http", version = "5.4.0")
+compile(group = "com.timeular.nytta.prova", name = "http", version = "5.5.0")
 ```
 
 ### Manual
