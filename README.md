@@ -1,6 +1,6 @@
 # Nytta
 
-[![Build](https://github.com/Timeular/nytta/actions/workflows/maven-build.yml/badge.svg)](https://github.com/Timeular/nytta/actions/workflows/maven-build.yml)
+[![Build](https://github.com/Timeular/nytta/actions/workflows/maven-build.yml/badge.svg?branch=main)](https://github.com/Timeular/nytta/actions/workflows/maven-build.yml)
 
 This is a collection of libraries which intend to be small helpers/utils.
 To read more about the nytta helpers visit the different readme files of the modules:
