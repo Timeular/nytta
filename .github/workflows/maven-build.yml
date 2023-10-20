@@ -1,5 +1,6 @@
 name: Build
-run-name: ${{ github.actor }} has implemented changes 🚀
+run-name: building ${{ github.event.head_commit.message }}
+ 🚀
 on: 
   pull_request:
     types: [opened, reopened, synchronize]

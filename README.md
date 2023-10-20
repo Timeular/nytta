@@ -47,11 +47,13 @@ For releases you have to proceed the following steps:
 git ci -am "Release to Version 4.0.0"
 git tag -a "4.0.0" -m "Release 4.0.0"
 
-git push 
-git push --tags
-
 ./mvnw clean deploy -P release
 
 # set to next version
 ./mvnw versions:set -DnewVersion=4.0.1-SNAPSHOT
+
+git ci -am "Setting Version to 4.0.1-SNAPSHOT"
+
+git push 
+git push --tags
 ```
