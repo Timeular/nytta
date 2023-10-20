@@ -13,7 +13,7 @@ jobs:
   build:
     strategy:
       matrix:
-        java-version: [ 8, 11, 17 ]
+        java-version: [ 8, 11, 17, 21 ]
         include:
           - java-version: 17
             dep-path: true
@@ -25,6 +25,7 @@ jobs:
     - name: Set up JDK ${{ matrix.java-version }}
       uses: actions/setup-java@v3
       with:
+        distribution: 'temurin'
         java-version: ${{ matrix.java-version }}
         cache: maven
     - name: Test with Maven
@@ -47,6 +48,7 @@ jobs:
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
+        distribution: 'temurin'
         java-version: '17'
         server-id: timeular.oss.sonatype.org
         server-username: MAVEN_USERNAME
