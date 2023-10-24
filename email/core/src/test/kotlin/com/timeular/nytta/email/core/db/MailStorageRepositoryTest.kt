@@ -93,4 +93,23 @@ internal class MailStorageRepositoryTest: DBUnitTest() {
         mailStorageRepository.deleteAllMails()
         assertThat(connection().getRowCount(MAIL_STORAGE_NAME), equalTo(0))
     }
+
+    @Test
+    fun testDeleteMailsByTag() {
+        for (i in 1..10) {
+            mailStorageRepository.saveMailConfig(mailBuilder.tag("tag1").build())
+        }
+
+        for (i in 1..10) {
+            mailStorageRepository.saveMailConfig(mailBuilder.tag("tag2").build())
+        }
+
+        assertThat(connection().getRowCount(MAIL_STORAGE_NAME), equalTo(20))
+
+        mailStorageRepository.deleteMailsByTag("tag1")
+        assertThat(connection().getRowCount(MAIL_STORAGE_NAME), equalTo(10))
+
+        mailStorageRepository.deleteMailsByTag("tag2")
+        assertThat(connection().getRowCount(MAIL_STORAGE_NAME), equalTo(0))
+    }
 }

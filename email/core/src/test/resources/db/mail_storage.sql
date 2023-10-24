@@ -26,3 +26,5 @@ CREATE TABLE mail_storage_attachment(
   CONSTRAINT mail_storage_attachment_mail_storage_fk FOREIGN KEY (mail_id)
   REFERENCES mail_storage (id)
 );
+
+CREATE INDEX mail_storage_mail_id_idx ON mail_storage_attachment (mail_Id);
