@@ -18,42 +18,46 @@ All modules are written in kotlin and released together. This means that if in o
 then all other modules will be released with the same version (usually there are at least dependency upgrades
 in all modules).
 
-All artifacts are hosted on the maven central repository but if you want to include snapshot releases you have
-to directly include the  sonatype snapshot repository:
-
-```gradle
-maven {
-    url "https://oss.sonatype.org/content/repositories/snapshots/"
-}
-```
+All artifacts are hosted on the maven central repository. Snapshots are not published.
 
 ### Deployment
 
-If you want to deploy the artifact to the sonatype repository you need appropriate permissions and you have to execute
-the following command in the root folder.
+Releases are published to Maven Central through the [Central Portal](https://central.sonatype.com)
+under the `com.timeular.nytta` namespace. You need:
 
-```bash
-./mvnw clean deploy
+* a Central Portal user token with access to the namespace, in `~/.m2/settings.xml`:
+
+```xml
+<settings>
+    <servers>
+        <server>
+            <id>central</id>
+            <username>TOKEN_USERNAME</username>
+            <password>TOKEN_PASSWORD</password>
+        </server>
+    </servers>
+</settings>
 ```
+
+* a GPG key, published to `keyserver.ubuntu.com` or `keys.openpgp.org`
 
 For releases you have to proceed the following steps:
 
 ```bash
-# set version to new target version
-./mvnw versions:set -DnewVersion=4.0.0
+# set version to new target version and update the version in the module READMEs
+./mvnw versions:set -DnewVersion=4.0.0 -DgenerateBackupPoms=false
 
-# git add and commit push to git repo
-# tag version
-git ci -am "Release to Version 4.0.0"
+# commit and tag version
+git commit -am "Release to version 4.0.0"
 git tag -a "4.0.0" -m "Release 4.0.0"
 
+# build, sign and publish to maven central
 ./mvnw clean deploy -P release
 
 # set to next version
-./mvnw versions:set -DnewVersion=4.0.1-SNAPSHOT
+./mvnw versions:set -DnewVersion=4.0.1-SNAPSHOT -DgenerateBackupPoms=false
+git commit -am "Set version to 4.0.1-SNAPSHOT"
 
-git ci -am "Setting Version to 4.0.1-SNAPSHOT"
-
-git push 
+git push
 git push --tags
 ```
